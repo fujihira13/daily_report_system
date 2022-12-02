@@ -28,6 +28,7 @@ public enum AttributeConst {
     EMP_PASS("password"),
     EMP_NAME("name"),
     EMP_ADMIN_FLG("admin_flag"),
+    EMP_FURIGANA("furigana"),
 
     //管理者フラグ
     ROLE_ADMIN(1),
@@ -37,6 +38,16 @@ public enum AttributeConst {
     DEL_FLAG_TRUE(1),
     DEL_FLAG_FALSE(0),
 
+    //follower_employees
+    FOLLOWER_ID("follower_id"),
+    FOLLOW_ID("follow_id"),
+    FOLLOWER("follower"),
+    FOLLOW("follow"),
+    FOLLOWERS("followers"),
+    FOLLOWS("followS"),
+    FOLLOW_COUNT("followS_count"),
+    FOL_ID("id"),
+
     //日報管理
     REPORT("report"),
     REPORTS("reports"),
@@ -45,6 +56,8 @@ public enum AttributeConst {
     REP_DATE("report_date"),
     REP_TITLE("title"),
     REP_CONTENT("content_msg");
+
+
 
     private final String text;
     private final Integer i;

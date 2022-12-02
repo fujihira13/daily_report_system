@@ -20,7 +20,7 @@ public class EmployeeService extends ServiceBase {
 
     /**
      * 指定されたページ数の一覧画面に表示するデータを取得し、EmployeeViewのリストで返却する
-     * @param page ページ数
+     * @param http://marketplace.eclipse.org/marketplace-client-intro?mpc_install=507775page ページ数
      * @return 表示するデータのリスト
      */
     public List<EmployeeView> getPerPage(int page) {

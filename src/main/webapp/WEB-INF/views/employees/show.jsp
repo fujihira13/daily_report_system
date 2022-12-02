@@ -23,6 +23,10 @@
                     <th>氏名</th>
                     <td><c:out value="${employee.name}" /></td>
                 </tr>
+                 <tr>
+                    <th>ふりがな</th>
+                    <td><c:out value="${employee.furigana}" /></td>
+                </tr>
                 <tr>
                     <th>権限</th>
                     <td><c:choose>

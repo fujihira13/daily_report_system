@@ -21,6 +21,7 @@ public class EmployeeConverter {
                 ev.getId(),
                 ev.getCode(),
                 ev.getName(),
+                ev.getFurigana(),
                 ev.getPassword(),
                 ev.getAdminFlag() == null
                         ? null
@@ -51,6 +52,7 @@ public class EmployeeConverter {
                 e.getId(),
                 e.getCode(),
                 e.getName(),
+                e.getFurigana(),
                 e.getPassword(),
                 e.getAdminFlag() == null
                         ? null
@@ -90,6 +92,7 @@ public class EmployeeConverter {
         e.setId(ev.getId());
         e.setCode(ev.getCode());
         e.setName(ev.getName());
+        e.setFurigana(ev.getFurigana());
         e.setPassword(ev.getPassword());
         e.setAdminFlag(ev.getAdminFlag());
         e.setCreatedAt(ev.getCreatedAt());

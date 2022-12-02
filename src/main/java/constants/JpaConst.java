@@ -20,6 +20,7 @@ public interface JpaConst {
     String EMP_COL_CREATED_AT = "created_at"; //登録日時
     String EMP_COL_UPDATED_AT = "updated_at"; //更新日時
     String EMP_COL_DELETE_FLAG = "delete_flag"; //削除フラグ
+    String EMP_COL_FURIGANA = "furigana"; //ふりがな
 
     int ROLE_ADMIN = 1; //管理者権限ON(管理者)
     int ROLE_GENERAL = 0; //管理者権限OFF(一般)
@@ -37,9 +38,17 @@ public interface JpaConst {
     String REP_COL_CREATED_AT = "created_at"; //登録日時
     String REP_COL_UPDATED_AT = "updated_at"; //更新日時
 
+  //フォローテーブル
+    String FOL_EMP = "follower_employees"; //テーブル名
+    //フォローテーブルカラム
+    String FOL_EMP_COL_ID = "id"; //id
+    String FOL_EMP_COL_FOLLOW = "follow_id"; //フォローした従業員のid
+    String FOL_EMP_COL_FOLLOWER = "follower_id"; //フォロワー従業員のid
+
     //Entity名
     String ENTITY_EMP = "employee"; //従業員
     String ENTITY_REP = "report"; //日報
+    String ENTITY_FOL = "follow"; //フォロー
 
     //JPQL内パラメータ
     String JPQL_PARM_CODE = "code"; //社員番号
@@ -59,6 +68,9 @@ public interface JpaConst {
     //指定した社員番号を保持する従業員の件数を取得する
     String Q_EMP_COUNT_REGISTERED_BY_CODE = ENTITY_EMP + ".countRegisteredByCode";
     String Q_EMP_COUNT_REGISTERED_BY_CODE_DEF = "SELECT COUNT(e) FROM Employee AS e WHERE e.code = :" + JPQL_PARM_CODE;
+  //指定した従業員をふりがなの降順に取得する
+    String Q_EMP_FU_GET = ENTITY_EMP + ".getFurigana"; //ふりがな
+    String Q_EMP_FU_GET_DEF = "SELECT e FROM FROM Employee AS e WHERE e.furigana = :" + JPQL_PARM_EMPLOYEE;
     //全ての日報をidの降順に取得する
     String Q_REP_GET_ALL = ENTITY_REP + ".getAll";
     String Q_REP_GET_ALL_DEF = "SELECT r FROM Report AS r ORDER BY r.id DESC";

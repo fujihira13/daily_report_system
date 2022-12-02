@@ -23,6 +23,10 @@
 <input type="text" name="${AttributeConst.EMP_NAME.getValue()}" id="${AttributeConst.EMP_NAME.getValue()}" value="${employee.name}" />
 <br /><br />
 
+<label for="${AttributeConst.EMP_FURIGANA.getValue()}">ふりがな</label><br />
+<input type="text" name="${AttributeConst.EMP_FURIGANA.getValue()}" id="${AttributeConst.EMP_FURIGANA.getValue()}" value="${employee.furigana}" />
+<br /><br />
+
 <label for="${AttributeConst.EMP_PASS.getValue()}">パスワード</label><br />
 <input type="password" name="${AttributeConst.EMP_PASS.getValue()}" id="${AttributeConst.EMP_PASS.getValue()}" />
 <br /><br />
