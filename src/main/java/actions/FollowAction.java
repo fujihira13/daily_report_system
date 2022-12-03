@@ -73,7 +73,7 @@ public class FollowAction  extends ActionBase {
             FollowView fv = new FollowView(
                     null,
                     ev,//ログインしている従業員が、フォローを登録する
-                    getRequestParam(AttributeConst.follower));
+                    getRequestParam(AttributeConst.follo));
 
 
 
