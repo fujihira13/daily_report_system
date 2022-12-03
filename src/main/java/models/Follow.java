@@ -50,14 +50,14 @@ public class Follow {
      * フォローする従業員
      */
     @ManyToOne
-    @JoinColumn(name = JpaConst.FOL_EMP_COL_FOLLOW, nullable = false)
+    @JoinColumn(name = JpaConst.FOL_EMP_COL_FOLLOW, nullable = true)
     private Employee follow;
 
     /**
      * フォローされた従業員
      */
     @ManyToOne
-    @JoinColumn(name = JpaConst.FOL_EMP_COL_FOLLOWER, nullable = false)
+    @JoinColumn(name = JpaConst.FOL_EMP_COL_FOLLOWER, nullable = true)
     private Employee follower;
 
 

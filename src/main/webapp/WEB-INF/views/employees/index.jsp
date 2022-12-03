@@ -23,6 +23,7 @@
                     <th>氏名</th>
                     <th>ふりがな</th>
                     <th>操作</th>
+                    <th>フォロー</th>
                 </tr>
                 <c:forEach var="employee" items="${employees}" varStatus="status">
                     <tr class="row${status.count % 2}">
@@ -39,6 +40,7 @@
                                 </c:otherwise>
                             </c:choose>
                         </td>
+                        <td> <button type="submit">フォローする</button></td>
                     </tr>
                 </c:forEach>
             </tbody>

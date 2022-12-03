@@ -44,8 +44,8 @@ public enum AttributeConst {
     FOLLOWER("follower"),
     FOLLOW("follow"),
     FOLLOWERS("followers"),
-    FOLLOWS("followS"),
-    FOLLOW_COUNT("followS_count"),
+    FOLLOWS("follows"),
+    FOLLOW_COUNT("follows_count"),
     FOL_ID("id"),
 
     //日報管理
