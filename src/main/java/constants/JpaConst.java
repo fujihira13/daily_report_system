@@ -42,8 +42,8 @@ public interface JpaConst {
     String FOL_EMP = "follower_employees"; //テーブル名
     //フォローテーブルカラム
     String FOL_EMP_COL_ID = "id"; //id
-    String FOL_EMP_COL_FOLLOW = "follow_id"; //フォローした従業員のid
-    String FOL_EMP_COL_FOLLOWER = "follower_id"; //フォロワー従業員のid
+    String FOL_EMP_COL_FOLLOW = "follow_id"; //フォローする従業員のid
+    String FOL_EMP_COL_FOLLOWER = "follower_id"; //フォローされた従業員のid
 
     //Entity名
     String ENTITY_EMP = "employee"; //従業員
@@ -68,9 +68,15 @@ public interface JpaConst {
     //指定した社員番号を保持する従業員の件数を取得する
     String Q_EMP_COUNT_REGISTERED_BY_CODE = ENTITY_EMP + ".countRegisteredByCode";
     String Q_EMP_COUNT_REGISTERED_BY_CODE_DEF = "SELECT COUNT(e) FROM Employee AS e WHERE e.code = :" + JPQL_PARM_CODE;
-  //指定した従業員をふりがなの降順に取得する
+  //指定した従業員のふりがなを取得する
     String Q_EMP_FU_GET = ENTITY_EMP + ".getFurigana"; //ふりがな
-    String Q_EMP_FU_GET_DEF = "SELECT e FROM FROM Employee AS e WHERE e.furigana = :" + JPQL_PARM_EMPLOYEE;
+    String Q_EMP_FU_GET_DEF = "SELECT e FROM Employee AS e WHERE e.furigana = :" + JPQL_PARM_EMPLOYEE;
+    //指定した従業員がフォローした全件idを降順で取得する
+    String Q_FOL_GET_ALL_MINE = ENTITY_FOL + ".getAllMine";
+    String Q_FOL_GET_ALL_MINE_DEF = "SELECT f FROM Fllow AS f WHERE f.employee = :" + JPQL_PARM_EMPLOYEE + " ORDER BY f.id DESC";
+    //指定した従業員がフォローした社員の件数を取得する
+    String Q_FOL_COUNT_ALL_MINE = ENTITY_FOL + ".countAllMine";
+    String Q_FOL_COUNT_ALL_MINE_DEF = "SELECT COUNT(f) FROM Fllow AS f WHERE f.employee = :" + JPQL_PARM_EMPLOYEE;
     //全ての日報をidの降順に取得する
     String Q_REP_GET_ALL = ENTITY_REP + ".getAll";
     String Q_REP_GET_ALL_DEF = "SELECT r FROM Report AS r ORDER BY r.id DESC";

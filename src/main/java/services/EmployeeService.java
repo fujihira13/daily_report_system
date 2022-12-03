@@ -130,6 +130,7 @@ public class EmployeeService extends ServiceBase {
      */
     public List<String> update(EmployeeView ev, String pepper) {
 
+
         //idを条件に登録済みの従業員情報を取得する
         EmployeeView savedEmp = findOne(ev.getId());
 
@@ -156,6 +157,7 @@ public class EmployeeService extends ServiceBase {
         }
 
         savedEmp.setName(ev.getName()); //変更後の氏名を設定する
+        savedEmp.setFurigana(ev.getFurigana());//変更後のふりがなを設定する
         savedEmp.setAdminFlag(ev.getAdminFlag()); //変更後の管理者フラグを設定する
 
         //更新日時に現在時刻を設定する

@@ -34,6 +34,12 @@ public class EmployeeValidator {
             errors.add(nameError);
         }
 
+        //ふりがなのチェック
+        String furiganaError = validateFurigana(ev.getFurigana());
+        if (!furiganaError.equals("")) {
+            errors.add(furiganaError);
+        }
+
         //パスワードのチェック
         String passError = validatePassword(ev.getPassword(), passwordCheckFlag);
         if (!passError.equals("")) {
@@ -92,6 +98,21 @@ public class EmployeeValidator {
 
         if (name == null || name.equals("")) {
             return MessageConst.E_NONAME.getMessage();
+        }
+
+        //入力値がある場合は空文字を返却
+        return "";
+    }
+
+    /**
+     * ふりがなに入力値があるかをチェックし、入力値がなければエラーメッセージを返却
+     * @param furigana ふりがな
+     * @return エラーメッセージ
+     */
+    private static String validateFurigana(String furigana) {
+
+        if (furigana == null || furigana.equals("")) {
+            return MessageConst.E_FURIGANA.getMessage();
         }
 
         //入力値がある場合は空文字を返却
