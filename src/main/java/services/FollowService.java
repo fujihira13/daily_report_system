@@ -1,6 +1,7 @@
 package services;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import actions.views.EmployeeConverter;
@@ -64,12 +65,13 @@ public class FollowService  extends ServiceBase {
      * 画面から入力されたフォローの登録を元に、フォローデータを更新する
      * @param fv フォローの更新内容
 
-    public List<String> update(ReportView rv) {
+
+    public List<String> update(FollowView fv) {
 
             updateInternal(fv);
         }
 
-
+ */
     /**
      * idを条件にデータを1件取得する
      * @param id
@@ -78,6 +80,22 @@ public class FollowService  extends ServiceBase {
     private Follow findOneInternal(int id) {
         return em.find(Follow.class, id);
     }
+
+
+
+    /**
+     * 画面から入力されたフォローの登録内容を元にデータを1件作成し、日報テーブルに登録する
+     * @param fv フォローの登録内容
+     * @return
+     */
+    public List<String> create(FollowView fv) {
+        List<String> foll = new ArrayList<String>();
+            createInternal(fv);
+            //0件の空リスト
+            return foll;
+        }
+
+
 
     /**
      * フォローデータを1件登録する
@@ -92,17 +110,17 @@ public class FollowService  extends ServiceBase {
     }
 
     /**
-     * フォローデータを更新する
-     * @param rv 日報データ
+     * フォローデータを削除する
+     * @param rv フォローデータ
      */
-    private void updateInternal(FollowView fv) {
+   /* private void updateInternal(FollowView fv) {
 
         em.getTransaction().begin();
         Follow f = findOneInternal(fv.getId());
         FollowConverter.copyViewToModel(f, fv);
         em.getTransaction().commit();
 
-    }
+    }*/
 
 }
 

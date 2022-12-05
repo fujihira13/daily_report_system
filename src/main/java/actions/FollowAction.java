@@ -1,5 +1,6 @@
 package actions;
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 
@@ -68,12 +69,17 @@ public class FollowAction  extends ActionBase {
 
             //セッションからログイン中の従業員情報を取得
             EmployeeView ev = (EmployeeView) getSessionScope(AttributeConst.LOGIN_EMP);
-
+            //フォローする従業員をインスタンス化
+            FollowView fol = new FollowView();
             //パラメータの値をもとにフォロー情報のインスタンスを作成する
             FollowView fv = new FollowView(
                     null,
                     ev,//ログインしている従業員が、フォローを登録する
-                    getRequestParam(AttributeConst.follo));
+                    fol.getFollow());//フォローする従業員を取得
+
+
+            //フォロー情報登録
+           List<String> foll = service.create(fv);
 
 
 
