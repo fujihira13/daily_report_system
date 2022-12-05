@@ -1,4 +1,5 @@
 package actions;
+
 import java.io.IOException;
 import java.util.List;
 
@@ -15,7 +16,7 @@ import services.FollowService;
  * フォローに関する処理を行うActionクラス
  *
  */
-public class FollowAction  extends ActionBase {
+public class FollowAction extends ActionBase {
 
     private FollowService service;
 
@@ -40,16 +41,16 @@ public class FollowAction  extends ActionBase {
     public void index() throws ServletException, IOException {
 
         //指定されたページ数の一覧画面に表示するフォローデータを取得
-   //     int page = getPage();
-     //   List<FollowView> follows = service.getMinePerPage(page);
+        //     int page = getPage();
+        //   List<FollowView> follows = service.getMinePerPage(page);
 
         //全フォローデータの件数を取得
-       // long followsCount = service.countAllMine();
+        // long followsCount = service.countAllMine();
 
-       // putRequestScope(AttributeConst.FOLLOWS, follows); //取得したフォローデータ
-       // putRequestScope(AttributeConst.FOLLOW_COUNT, followsCount); //全てのフォローデータの件数
-       // putRequestScope(AttributeConst.PAGE, page); //ページ数
-       // putRequestScope(AttributeConst.MAX_ROW, JpaConst.ROW_PER_PAGE); //1ページに表示するレコードの数
+        // putRequestScope(AttributeConst.FOLLOWS, follows); //取得したフォローデータ
+        // putRequestScope(AttributeConst.FOLLOW_COUNT, followsCount); //全てのフォローデータの件数
+        // putRequestScope(AttributeConst.PAGE, page); //ページ数
+        // putRequestScope(AttributeConst.MAX_ROW, JpaConst.ROW_PER_PAGE); //1ページに表示するレコードの数
 
         //セッションにフラッシュメッセージが設定されている場合はリクエストスコープに移し替え、セッションからは削除する
         String flush = getSessionScope(AttributeConst.FLUSH);
@@ -66,32 +67,26 @@ public class FollowAction  extends ActionBase {
 
         //CSRF対策 tokenのチェック
         if (checkToken()) {
-
+            //  //idを条件に従業員データを取得する
+            FollowView fol = service.findOne(toNumber(getRequestParam(AttributeConst.EMP_ID)));
             //セッションからログイン中の従業員情報を取得
             EmployeeView ev = (EmployeeView) getSessionScope(AttributeConst.LOGIN_EMP);
-            //フォローする従業員をインスタンス化
-            FollowView fol = new FollowView();
             //パラメータの値をもとにフォロー情報のインスタンスを作成する
             FollowView fv = new FollowView(
                     null,
-                    ev,//ログインしている従業員が、フォローを登録する
+                    ev, //ログインしている従業員
                     fol.getFollow());//フォローする従業員を取得
 
-
             //フォロー情報登録
-           List<String> foll = service.create(fv);
+            List<String> foll = service.create(fv);
 
+            putRequestScope(AttributeConst.FOLLOW, fv); //取得した従業員情報
 
+            //セッションに登録完了のフラッシュメッセージを設定
+            putSessionScope(AttributeConst.FLUSH, MessageConst.I_REGISTERED.getMessage());
 
-                //セッションに登録完了のフラッシュメッセージを設定
-                putSessionScope(AttributeConst.FLUSH, MessageConst.I_REGISTERED.getMessage());
-
-                //一覧画面にリダイレクト
-                redirect(ForwardConst.ACT_FOLLOW, ForwardConst.CMD_INDEX);
-            }
+            //一覧画面にリダイレクト
+            redirect(ForwardConst.ACT_EMP, ForwardConst.CMD_INDEX);
         }
     }
-
-
-
-
+}

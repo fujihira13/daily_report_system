@@ -43,21 +43,10 @@
                                         href="<c:url value='?action=${actEmp}&command=${commShow}&id=${employee.id}' />">詳細を見る</a>
                                 </c:otherwise>
                             </c:choose></td>
-                        <form method="POST"
-                            action="<c:url value='?action=${actionFol}&command=${commCrt}' />">
-                            <td><a
-                                href="<c:url value='?action=${actEmp}&command=${commIdx}' />">
-                                    <input type="hidden" name="${AttributeConst.EMP_ID.getValue()}"
-                                    value="${employee.id}" /> <input type="hidden"
-                                    name="${AttributeConst.EMP_CODE.getValue()}"
-                                    value="${employee.code}" /> <input type="hidden"
-                                    name="${AttributeConst.EMP_NAME.getValue()}"
-                                    value="${employee.name}" /> <input type="hidden"
-                                    name="${AttributeConst.EMP_FURIGANA.getValue()}"
-                                    value="${employee.furigana}" />
+                            <td>
+                          <a href="<c:url value='?action=${actFol}&command=${commCrt}&id=${employee.id}' />">
                                     <button type="submit">フォローする</button>
                             </a></td>
-                        </form>
                     </tr>
                 </c:forEach>
             </tbody>

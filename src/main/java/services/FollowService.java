@@ -99,7 +99,7 @@ public class FollowService  extends ServiceBase {
 
     /**
      * フォローデータを1件登録する
-     * @param rv 日報データ
+     * @param fv フォローデータ
      */
     private void createInternal(FollowView fv) {
 
