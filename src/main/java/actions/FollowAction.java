@@ -68,19 +68,20 @@ public class FollowAction extends ActionBase {
         //CSRF対策 tokenのチェック
         if (checkToken()) {
             //  //idを条件に従業員データを取得する
-            FollowView fol = service.findOne(toNumber(getRequestParam(AttributeConst.EMP_ID)));
+            EmployeeView fol = service.findOne(toNumber(getRequestParam(AttributeConst.EMP_ID)));
             //セッションからログイン中の従業員情報を取得
             EmployeeView ev = (EmployeeView) getSessionScope(AttributeConst.LOGIN_EMP);
             //パラメータの値をもとにフォロー情報のインスタンスを作成する
             FollowView fv = new FollowView(
                     null,
-                    ev, //ログインしている従業員
-                    fol.getFollow());//フォローする従業員を取得
+                    fol,//フォローする従業員を取得
+                    ev); //ログインしている従業員
 
             //フォロー情報登録
-            List<String> foll = service.create(fv);
+            List<String>  foll = service.create(fv);
 
             putRequestScope(AttributeConst.FOLLOW, fv); //取得した従業員情報
+            putRequestScope(AttributeConst.FOLLOW, foll);//フォローのリスト
 
             //セッションに登録完了のフラッシュメッセージを設定
             putSessionScope(AttributeConst.FLUSH, MessageConst.I_REGISTERED.getMessage());

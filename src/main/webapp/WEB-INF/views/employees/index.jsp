@@ -45,7 +45,7 @@
                             </c:choose></td>
                             <td>
                           <a href="<c:url value='?action=${actFol}&command=${commCrt}&id=${employee.id}' />">
-                                    <button type="submit">フォローする</button>
+                                    <button>フォローする</button>
                             </a></td>
                     </tr>
                 </c:forEach>

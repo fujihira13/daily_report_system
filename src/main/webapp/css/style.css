@@ -61,10 +61,8 @@ td {
     padding: 10px 2%;
 }
 
-button {
-    font-size: 14px;
-    padding: 5px 10px;
-}
+.button {
+ }
 
 #flush_success {
     width: 100%;
