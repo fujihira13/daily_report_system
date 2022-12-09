@@ -9,6 +9,7 @@ import actions.views.EmployeeView;
 import actions.views.FollowView;
 import constants.AttributeConst;
 import constants.ForwardConst;
+import constants.JpaConst;
 import constants.MessageConst;
 import services.FollowService;
 
@@ -41,16 +42,16 @@ public class FollowAction extends ActionBase {
     public void index() throws ServletException, IOException {
 
         //指定されたページ数の一覧画面に表示するフォローデータを取得
-        //     int page = getPage();
-        //   List<FollowView> follows = service.getMinePerPage(page);
+             int page = getPage();
+           List<FollowView> follows = service.getMinePerPage(page);
 
         //全フォローデータの件数を取得
-        // long followsCount = service.countAllMine();
+         long followsCount = service.countAllMine();
 
-        // putRequestScope(AttributeConst.FOLLOWS, follows); //取得したフォローデータ
-        // putRequestScope(AttributeConst.FOLLOW_COUNT, followsCount); //全てのフォローデータの件数
-        // putRequestScope(AttributeConst.PAGE, page); //ページ数
-        // putRequestScope(AttributeConst.MAX_ROW, JpaConst.ROW_PER_PAGE); //1ページに表示するレコードの数
+         putRequestScope(AttributeConst.FOLLOWS, follows); //取得したフォローデータ
+         putRequestScope(AttributeConst.FOLLOW_COUNT, followsCount); //全てのフォローデータの件数
+         putRequestScope(AttributeConst.PAGE, page); //ページ数
+         putRequestScope(AttributeConst.MAX_ROW, JpaConst.ROW_PER_PAGE); //1ページに表示するレコードの数
 
         //セッションにフラッシュメッセージが設定されている場合はリクエストスコープに移し替え、セッションからは削除する
         String flush = getSessionScope(AttributeConst.FLUSH);
@@ -65,8 +66,6 @@ public class FollowAction extends ActionBase {
 
     public void create() throws ServletException, IOException {
 
-        //CSRF対策 tokenのチェック
-        if (checkToken()) {
             //  //idを条件に従業員データを取得する
             EmployeeView fol = service.findOne(toNumber(getRequestParam(AttributeConst.EMP_ID)));
             //セッションからログイン中の従業員情報を取得
@@ -78,10 +77,18 @@ public class FollowAction extends ActionBase {
                     ev); //ログインしている従業員
 
             //フォロー情報登録
-            List<String>  foll = service.create(fv);
+            List<String>  errors = service.create(fv);
+            if (errors.size() > 0) {
+                //登録中にエラーがあった場合
 
+            putRequestScope(AttributeConst.TOKEN, getTokenId()); //CSRF対策用トークン
             putRequestScope(AttributeConst.FOLLOW, fv); //取得した従業員情報
-            putRequestScope(AttributeConst.FOLLOW, foll);//フォローのリスト
+            putRequestScope(AttributeConst.ERR, errors);//エラーのリスト
+
+            //新規登録画面を再表示
+            forward(ForwardConst.FW_REP_NEW);
+            } else {
+                //登録中にエラーがなかった場合
 
             //セッションに登録完了のフラッシュメッセージを設定
             putSessionScope(AttributeConst.FLUSH, MessageConst.I_REGISTERED.getMessage());

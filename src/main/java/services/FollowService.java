@@ -1,10 +1,7 @@
 package services;
 
 
-import java.util.ArrayList;
 import java.util.List;
-
-import javax.persistence.NoResultException;
 
 import actions.views.EmployeeConverter;
 import actions.views.EmployeeView;
@@ -12,7 +9,8 @@ import actions.views.FollowConverter;
 import actions.views.FollowView;
 import constants.JpaConst;
 import models.Employee;
-import utils.EncryptUtil;
+import models.Follow;
+import models.validators.FollowValidator;
 
 
 
@@ -28,10 +26,9 @@ public class FollowService  extends ServiceBase {
      * @param page ページ数
      * @return 一覧画面に表示するデータのリスト
      */
- /*   public List<FollowView> getMinePerPage(EmployeeView employee, int page) {
+    public List<FollowView> getMinePerPage(int page) {
 
         List<Follow> follows = em.createNamedQuery(JpaConst.Q_FOL_GET_ALL_MINE, Follow.class)
-                .setParameter(JpaConst.JPQL_PARM_EMPLOYEE, EmployeeConverter.toModel(employee))
                 .setFirstResult(JpaConst.ROW_PER_PAGE * (page - 1))
                 .setMaxResults(JpaConst.ROW_PER_PAGE)
                 .getResultList();
@@ -43,14 +40,11 @@ public class FollowService  extends ServiceBase {
      * @param employee
      * @return 日報データの件数
      */
-   /* public long countAllMine(EmployeeView employee) {
-
-        long count = (long) em.createNamedQuery(JpaConst.Q_FOL_COUNT_ALL_MINE, Long.class)
-                .setParameter(JpaConst.JPQL_PARM_EMPLOYEE, EmployeeConverter.toModel(employee))
-                .getSingleResult();
-
-        return count;
-    }
+    public long countAllMine() {
+            long follows_count = (long) em.createNamedQuery(JpaConst.Q_FOL_COUNT, Long.class)
+                    .getSingleResult();
+            return follows_count;
+        }
 
 
     /**
@@ -62,31 +56,7 @@ public class FollowService  extends ServiceBase {
         return FollowConverter.toView(findOneInternal(id));
     }
 
-    /**
-     * 社員番号、パスワードを条件に取得したデータをEmployeeViewのインスタンスで返却する
-     * @param code 社員番号
-     * @param plainPass パスワード文字列
-     * @param pepper pepper文字列
-     * @return 取得データのインスタンス 取得できない場合null
-     */
-    public EmployeeView findOne(String code, String plainPass, String pepper) {
-        Employee e = null;
-        try {
-            //パスワードのハッシュ化
-            String pass = EncryptUtil.getPasswordEncrypt(plainPass, pepper);
 
-            //社員番号とハッシュ化済パスワードを条件に未削除の従業員を1件取得する
-            e = em.createNamedQuery(JpaConst.Q_EMP_GET_BY_CODE_AND_PASS, Employee.class)
-                    .setParameter(JpaConst.JPQL_PARM_CODE, code)
-                    .setParameter(JpaConst.JPQL_PARM_PASSWORD, pass)
-                    .getSingleResult();
-
-        } catch (NoResultException ex) {
-        }
-
-        return EmployeeConverter.toView(e);
-
-    }
 
     /**
      * idを条件に取得したデータをEmployeeViewのインスタンスで返却する
@@ -94,8 +64,8 @@ public class FollowService  extends ServiceBase {
      * @return 取得データのインスタンス
      */
     public EmployeeView findOne(int id) {
-        Employee e = findOneInternal(id);
-        return EmployeeConverter.toView(e);
+        Employee fol = findOneInternal(id);
+        return EmployeeConverter.toView(fol);
     }
 
     /**
@@ -104,9 +74,9 @@ public class FollowService  extends ServiceBase {
      * @return 取得データのインスタンス
      */
     private Employee findOneInternal(int id) {
-        Employee e = em.find(Employee.class, id);
+        Employee fol = em.find(Employee.class, id);
 
-        return e;
+        return fol;
     }
     /**
      * 画面から入力されたフォローの登録を元に、フォローデータを更新する
@@ -136,12 +106,14 @@ public class FollowService  extends ServiceBase {
      * @return
      */
     public List<String> create(FollowView fv) {
-        List<String> foll = new ArrayList<String>();
+        List<String>  errors = FollowValidator.validate(fv);
+        if (errors.size() == 0) {
             createInternal(fv);
-            //0件の空リスト
-            return foll;
         }
 
+        //バリデーションで発生したエラーを返却（エラーがなければ0件の空リスト）
+        return errors;
+    }
 
 
     /**

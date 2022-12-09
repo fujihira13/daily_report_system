@@ -1,13 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="constants.AttributeConst"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="constants.ForwardConst"%>
 
+<c:set var="actEmp" value="${ForwardConst.ACT_EMP.getValue()}" />
 <c:set var="actFol" value="${ForwardConst.ACT_FOLLOW.getValue()}" />
+<c:set var="actRep" value="${ForwardConst.ACT_REP.getValue()}" />
 <c:set var="commIdx" value="${ForwardConst.CMD_INDEX.getValue()}" />
 <c:set var="commShow" value="${ForwardConst.CMD_SHOW.getValue()}" />
 <c:set var="commNew" value="${ForwardConst.CMD_NEW.getValue()}" />
+<c:set var="commCrt" value="${ForwardConst.CMD_CREATE.getValue()}" />
 
 <c:import url="/WEB-INF/views/layout/app.jsp">
     <c:param name="content">
@@ -20,9 +24,9 @@
         <table id="follow_list">
             <tbody>
                 <tr>
-                    <th class="follow_name">氏名</th>
-                    <th class="follow_date">日付</th>
-                    <th class="follow_title">タイトル</th>
+                    <th class="follow_name">社員番号</th>
+                    <th class="follow_date">氏名</th>
+                    <th class="follow_title">ふりがな</th>
                     <th class="follow_action">操作</th>
                     <th class="follow_action">フォロー</th>
                 </tr>
@@ -30,33 +34,17 @@
 
                     <tr class="row${status.count % 2}">
                         <td class="follow_name"><c:out
-                                value="${report.employee.name}" /></td>
-                        <td class="follow_date"><fmt:formatDate value='${reportDay}'
-                                pattern='yyyy-MM-dd' /></td>
-                        <td class="follow_title">${report.title}</td>
+                                value="${employee.code}" /></td>
+                                <td><c:out value="${employee.name}" /></td>
+                        <td><c:out value="${employee.furigana}" /></td>
                         <td class="follow_action"><a
-                            href="<c:url value='?action=${actFol}&command=${commShow}&id=${follow.id}' />">詳細を見る</a></td>
+                            href="<c:url value='?action=${actRep}&command=${commShow}&id=${report.id}' />">詳細を見る</a></td>
                     </tr>
                 </c:forEach>
             </tbody>
         </table>
 
-        <div id="pagination">
-            （全 ${follows_count} 件）<br />
-          <%--  <c:forEach var="i" begin="1"
-                end="${((follows_count - 1) / maxRow) + 1}" step="1">
-                <c:choose>
-                    <c:when test="${i == page}">
-                        <c:out value="${i}" />&nbsp;
-                    </c:when>
-                    <c:otherwise>
-                        <a
-                            href="<c:url value='?action=${actFol}&command=${commIdx}&page=${i}' />"><c:out
-                                value="${i}" /></a>&nbsp;
-                    </c:otherwise>
-                </c:choose>
-            </c:forEach>--%>
-        </div>
+
         <p>
             <a href="<c:url value='?action=${actFol}&command=${commNew}' />">新規日報の登録</a>
         </p>

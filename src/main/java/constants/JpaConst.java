@@ -77,6 +77,9 @@ public interface JpaConst {
     //指定した従業員がフォローした社員の件数を取得する
     String Q_FOL_COUNT_ALL_MINE = ENTITY_FOL + ".countAllMine";
     String Q_FOL_COUNT_ALL_MINE_DEF = "SELECT COUNT(f) FROM Fllow AS f WHERE f.employee = :" + JPQL_PARM_EMPLOYEE;
+    //全てのフォローの件数を取得する
+    String Q_FOL_COUNT = ENTITY_FOL + ".count";
+    String Q_FOL_COUNT_DEF = "SELECT COUNT(f) FROM Report AS f";
     //全ての日報をidの降順に取得する
     String Q_REP_GET_ALL = ENTITY_REP + ".getAll";
     String Q_REP_GET_ALL_DEF = "SELECT r FROM Report AS r ORDER BY r.id DESC";

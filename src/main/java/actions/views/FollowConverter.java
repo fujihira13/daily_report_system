@@ -19,8 +19,8 @@ public class FollowConverter {
     public static Follow toModel(FollowView fv) {
         return new Follow(
                 fv.getId(),
-                EmployeeConverter.toModel(fv.getFollower()),
-                EmployeeConverter.toModel(fv.getFollow()));
+                EmployeeConverter.toModel(fv.getFollow()),
+                EmployeeConverter.toModel(fv.getFollower()));
     }
 
 
@@ -37,8 +37,8 @@ public class FollowConverter {
 
         return new FollowView(
                 f.getId(),
-                EmployeeConverter.toView(f.getFollower()),
-                EmployeeConverter.toView(f.getFollow()));
+                EmployeeConverter.toView(f.getFollow()),
+                EmployeeConverter.toView(f.getFollower()));
     }
 
     /**

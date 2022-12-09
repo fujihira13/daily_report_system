@@ -25,12 +25,12 @@ public class FollowView {
 
 
     /**
-     * フォローする従業員
+     * フォローされる従業員
      */
     private EmployeeView follow;
 
     /**
-     * フォローされた従業員
+     * フォローする従業員
      */
     private EmployeeView follower;
 
