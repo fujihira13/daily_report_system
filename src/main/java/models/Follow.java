@@ -17,23 +17,22 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * 日報データのDTOモデル
+ * フォローデータのDTOモデル
  *
  */
 @Table(name = JpaConst.FOL_EMP)
 @NamedQueries({
 
-    @NamedQuery(
-            name = "getFollow",
-            query = "SELECT f FROM Follow AS f WHERE f.follower =:follower AND f.follow =:follow"
-            ),
 
- //   @NamedQuery(
-   //         name = JpaConst.Q_FOL_GET_ALL_MINE,
-     //       query = JpaConst.Q_FOL_GET_ALL_MINE_DEF),
-  //  @NamedQuery(
-       //    name = JpaConst.Q_FOL_COUNT_ALL_MINE,
-        //    query = JpaConst.Q_FOL_COUNT_ALL_MINE_DEF)
+    @NamedQuery(
+            name = JpaConst.Q_FOL_GET_ALL_MINE,
+            query = JpaConst.Q_FOL_GET_ALL_MINE_DEF),
+    @NamedQuery(
+           name = JpaConst.Q_FOL_COUNT_ALL_MINE,
+            query = JpaConst.Q_FOL_COUNT_ALL_MINE_DEF),
+   // @NamedQuery(
+     //       name =JpaConst. Q_FOL_COUNT_REGISTERED_BY_CODE,
+       //     query = JpaConst.Q_FOL_COUNT_REGISTERED_BY_CODE_DEF),
 })
 
 @Getter //全てのクラスフィールドについてgetterを自動生成する(Lombok)

@@ -41,7 +41,7 @@ public class FollowService  extends ServiceBase {
      * @return 日報データの件数
      */
     public long countAllMine() {
-            long follows_count = (long) em.createNamedQuery(JpaConst.Q_FOL_COUNT, Long.class)
+            long follows_count = (long) em.createNamedQuery(JpaConst.Q_FOL_COUNT_ALL_MINE, Long.class)
                     .getSingleResult();
             return follows_count;
         }
