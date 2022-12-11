@@ -28,7 +28,7 @@ public class FollowService  extends ServiceBase {
      */
     public List<FollowView> getMinePerPage(int page) {
 
-        List<Follow> follows = em.createNamedQuery(JpaConst.Q_FOL_GET_ALL_MINE, Follow.class)
+        List<Follow> follows = em.createNamedQuery(JpaConst.Q_FOL_COUNT_REGISTERED_BY_CODE, Follow.class)
                 .setFirstResult(JpaConst.ROW_PER_PAGE * (page - 1))
                 .setMaxResults(JpaConst.ROW_PER_PAGE)
                 .getResultList();

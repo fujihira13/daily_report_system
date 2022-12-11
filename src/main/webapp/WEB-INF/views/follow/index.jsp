@@ -34,9 +34,9 @@
 
                     <tr class="row${status.count % 2}">
                         <td class="follow_name"><c:out
-                                value="${follow.employee.code}" /></td>
-                                <td><c:out value="${follow.employee.name}" /></td>
-                        <td><c:out value="${follow.employee.furigana}" /></td>
+                                value="${follow.code}" /></td>
+                                <td><c:out value="${follow.name}" /></td>
+                        <td><c:out value="${follow.furigana}" /></td>
                         <td class="follow_action"><a
                             href="<c:url value='?action=${actRep}&command=${commShow}&id=${report.id}' />">詳細を見る</a></td>
                              <td>
