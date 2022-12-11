@@ -30,17 +30,17 @@
                     <th class="follow_action">操作</th>
                     <th class="follow_action">フォロー</th>
                 </tr>
-                <c:forEach var="follow" items="${follows}" varStatus="status">
+                 <c:forEach var="follow" items="${follows}" varStatus="status">
 
                     <tr class="row${status.count % 2}">
                         <td class="follow_name"><c:out
-                                value="${follow.id.employee.code}" /></td>
-                                <td><c:out value="${follow.id.employee.name}" /></td>
-                        <td><c:out value="${follow.id.employee.furigana}" /></td>
+                                value="${follow.employee.code}" /></td>
+                                <td><c:out value="${follow.employee.name}" /></td>
+                        <td><c:out value="${follow.employee.furigana}" /></td>
                         <td class="follow_action"><a
                             href="<c:url value='?action=${actRep}&command=${commShow}&id=${report.id}' />">詳細を見る</a></td>
                              <td>
-                                    <button class="follow">フォローを外す</button>
+                                    <button class="nofollow">フォローを外す</button>
                           </td>
                     </tr>
                 </c:forEach>

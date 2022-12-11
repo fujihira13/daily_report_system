@@ -83,6 +83,17 @@ td {
   background    : #ffffff;
 }
 
+.nofollow {
+    color: #721c24;
+     display       : inline-block;
+  border-radius : 5%;
+  font-size     : 18pt;
+  text-align    : center;
+  cursor        : pointer;
+  padding       : 12px 12px;
+  background    : #f8d7da
+  };
+
 #flush_success {
     width: 100%;
     padding-top: 28px;

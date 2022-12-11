@@ -41,6 +41,8 @@ public class FollowAction extends ActionBase {
      */
     public void index() throws ServletException, IOException {
 
+
+
         //指定されたページ数の一覧画面に表示するフォローデータを取得
              int page = getPage();
            List<FollowView> follows = service.getMinePerPage(page);
