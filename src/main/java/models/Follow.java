@@ -31,8 +31,11 @@ import lombok.Setter;
            name = JpaConst.Q_FOL_COUNT_ALL_MINE,
             query = JpaConst.Q_FOL_COUNT_ALL_MINE_DEF),
     @NamedQuery(
-            name =JpaConst. Q_FOL_COUNT_REGISTERED_BY_CODE,
-            query = "SELECT f FROM Follow as f WHERE  f.follower=:follow "),
+            name =JpaConst. Q_FOLLOW_GET_ALL_MINE,
+            query =JpaConst. Q_FOLLOW_GET_ALL_MINE_DEF),
+    @NamedQuery(
+            name =JpaConst. Q_FOLOW_COUNT_ALL_MINE,
+            query =JpaConst. Q_FOLLOW_COUNT_ALL_MINE_DEF),
 })
 
 @Getter //全てのクラスフィールドについてgetterを自動生成する(Lombok)

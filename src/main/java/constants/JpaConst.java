@@ -54,6 +54,7 @@ public interface JpaConst {
     String JPQL_PARM_CODE = "code"; //社員番号
     String JPQL_PARM_PASSWORD = "password"; //パスワード
     String JPQL_PARM_EMPLOYEE = "employee"; //従業員
+    String JPQL_PARM_FOLLOWER = "follower"; //フォロワーー
 
     //NamedQueryの nameとquery
     //全ての従業員をidの降順に取得する
@@ -71,12 +72,24 @@ public interface JpaConst {
   //指定した従業員のふりがなを取得する
     String Q_EMP_FU_GET = ENTITY_EMP + ".getFurigana"; //ふりがな
     String Q_EMP_FU_GET_DEF = "SELECT e FROM Employee AS e WHERE e.furigana = :" + JPQL_PARM_EMPLOYEE;
+
     //フォローした全件idを降順で取得する
     String Q_FOL_GET_ALL_MINE = ENTITY_FOL + ".getAllMine";
     String Q_FOL_GET_ALL_MINE_DEF = "SELECT f FROM Follow AS f ORDER BY f.id DESC";
+
     //フォローした社員の件数を取得する
     String Q_FOL_COUNT_ALL_MINE = ENTITY_FOL + ".countAllMine";
     String Q_FOL_COUNT_ALL_MINE_DEF = "SELECT COUNT(f) FROM Follow AS f";
+
+    //指定した従業員がフォローした従業員を全て取得する
+    String Q_FOLLOW_GET_ALL_MINE = ENTITY_FOL + ".getAllFollowMine";
+    String Q_FOLLOW_GET_ALL_MINE_DEF = "SELECT f FROM Follow AS f WHERE f.follower = :" + JPQL_PARM_FOLLOWER + " ORDER BY f.id DESC";
+
+    //指定した従業員がフォローした従業員の件数を取得する
+    String Q_FOLOW_COUNT_ALL_MINE = ENTITY_FOL + ".countFollowAllMine";
+    String Q_FOLLOW_COUNT_ALL_MINE_DEF = "SELECT COUNT(f) FROM Follow AS f WHERE f.follower = :" + JPQL_PARM_FOLLOWER;
+
+
     //指定した社員番号を保持するフォロー従業員の件数を取得する
     String Q_FOL_COUNT_REGISTERED_BY_CODE = ENTITY_FOL + ".countRegisteredByCode";
     String Q_FOL_COUNT_REGISTERED_BY_CODE_DEF = "SELECT COUNT(f) FROM Follow AS f WHERE f.code = :" + JPQL_PARM_CODE;

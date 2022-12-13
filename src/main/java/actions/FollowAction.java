@@ -42,16 +42,18 @@ public class FollowAction extends ActionBase {
     public void index() throws ServletException, IOException {
 
 
+        //セッションからログイン中の従業員情報を取得
+        EmployeeView loginEmployee = (EmployeeView) getSessionScope(AttributeConst.LOGIN_EMP);
 
-        //指定されたページ数の一覧画面に表示するフォローデータを取得
+        //ログイン中に従業員がフォローしたフォロー従業員を、指定されたページ数の一覧画面に表示する分取得する
              int page = getPage();
-           List<FollowView> follows = service.getMinePerPage(page);
+           List<FollowView> follows = service.getMinePerPage(loginEmployee,page);
 
-        //全フォローデータの件数を取得
-         long followsCount = service.countAllMine();
+         //ログイン中の従業員がフォローした従業員データの件数を取得
+         long followsCount = service.countAllMine(loginEmployee);
 
          putRequestScope(AttributeConst.FOLLOWS, follows); //取得したフォローデータ
-         putRequestScope(AttributeConst.FOLLOW_COUNT, followsCount); //全てのフォローデータの件数
+         putRequestScope(AttributeConst.FOLLOW_COUNT, followsCount); //ログイン中の従業員がフォローした従業員の数
          putRequestScope(AttributeConst.PAGE, page); //ページ数
          putRequestScope(AttributeConst.MAX_ROW, JpaConst.ROW_PER_PAGE); //1ページに表示するレコードの数
 
