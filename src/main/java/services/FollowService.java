@@ -1,6 +1,5 @@
 package services;
 
-
 import java.util.List;
 
 import actions.views.EmployeeConverter;
@@ -12,14 +11,11 @@ import models.Employee;
 import models.Follow;
 import models.validators.FollowValidator;
 
-
-
-
 /**
  * フォローテーブルの操作に関わる処理を行うクラス
  */
 
-public class FollowService  extends ServiceBase {
+public class FollowService extends ServiceBase {
     /**
      * 指定した従業員がフォローした従業員を、指定されたページ数の一覧画面に表示する分取得しFollowViewのリストで返却する
      * @param employee 従業員
@@ -42,12 +38,11 @@ public class FollowService  extends ServiceBase {
      * @return フォロー従業員データの件数
      */
     public long countAllMine(EmployeeView employee) {
-            long follows_count = (long) em.createNamedQuery(JpaConst.Q_FOLOW_COUNT_ALL_MINE, Long.class)
-                    .setParameter(JpaConst.JPQL_PARM_FOLLOWER, EmployeeConverter.toModel(employee))
-                    .getSingleResult();
-            return follows_count;
-        }
-
+        long follows_count = (long) em.createNamedQuery(JpaConst.Q_FOLOW_COUNT_ALL_MINE, Long.class)
+                .setParameter(JpaConst.JPQL_PARM_FOLLOWER, EmployeeConverter.toModel(employee))
+                .getSingleResult();
+        return follows_count;
+    }
 
     /**
      * idを条件に取得したデータをFollowViewのインスタンスで返却する
@@ -80,6 +75,7 @@ public class FollowService  extends ServiceBase {
 
         return fol;
     }
+
     /**
      * 画面から入力されたフォローの登録を元に、フォローデータを更新する
      * @param fv フォローの更新内容
@@ -90,13 +86,13 @@ public class FollowService  extends ServiceBase {
             updateInternal(fv);
         }
 
- */
+    */
     /**
      * idを条件にデータを1件取得する
      * @param id
      * @return 取得データのインスタンス
      */
-   /* private Follow findOneInternal(int id) {
+    /* private Follow findOneInternal(int id) {
         return em.find(Follow.class, id);
     }
 
@@ -108,7 +104,7 @@ public class FollowService  extends ServiceBase {
      * @return
      */
     public List<String> create(FollowView fv) {
-        List<String>  errors = FollowValidator.validate(fv);
+        List<String> errors = FollowValidator.validate(fv);
         if (errors.size() == 0) {
             createInternal(fv);
         }
@@ -116,7 +112,6 @@ public class FollowService  extends ServiceBase {
         //バリデーションで発生したエラーを返却（エラーがなければ0件の空リスト）
         return errors;
     }
-
 
     /**
      * フォローデータを1件登録する
@@ -131,19 +126,20 @@ public class FollowService  extends ServiceBase {
     }
 
     /**
-     * フォローデータを削除する
-     * @param rv フォローデータ
+     * idを条件にフォロー従業員データを削除する
+     * @param id
      */
-   /* private void updateInternal(FollowView fv) {
+    public void destroy(Integer id) {
+        //idを条件にフォロー済みの従業員情報を取得する
+
+        Follow f = em.find(Follow.class, id);
+        //削除する
 
         em.getTransaction().begin();
-        Follow f = findOneInternal(fv.getId());
-        FollowConverter.copyViewToModel(f, fv);
+        em.remove(f); // データの物理削除
         em.getTransaction().commit();
+        em.close();
 
-    }*/
+    }
 
 }
-
-
-

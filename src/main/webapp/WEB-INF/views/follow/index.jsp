@@ -12,6 +12,7 @@
 <c:set var="commShow" value="${ForwardConst.CMD_SHOW.getValue()}" />
 <c:set var="commNew" value="${ForwardConst.CMD_NEW.getValue()}" />
 <c:set var="commCrt" value="${ForwardConst.CMD_CREATE.getValue()}" />
+<c:set var="commDel" value="${ForwardConst.CMD_DESTROY.getValue()}" />
 
 <c:import url="/WEB-INF/views/layout/app.jsp">
     <c:param name="content">
@@ -40,7 +41,10 @@
                         <td class="follow_action"><a
                             href="<c:url value='?action=${actRep}&command=${commShow}&id=${report.id}' />">詳細を見る</a></td>
                              <td>
+                             <a href="<c:url value='?action=${actFol}&command=${commDel}&id=${follow.id}' />">
                                     <button class="nofollow">フォローを外す</button>
+                            </a>
+
                           </td>
                     </tr>
                 </c:forEach>

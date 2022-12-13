@@ -101,4 +101,22 @@ public class FollowAction extends ActionBase {
             redirect(ForwardConst.ACT_EMP, ForwardConst.CMD_INDEX);
         }
     }
+
+    public void destroy() throws ServletException, IOException {
+
+
+
+            //idを条件にフォロー従業員データを削除する
+            service.destroy(toNumber(getRequestParam(AttributeConst.FOL_ID)));
+
+            //セッションに削除完了のフラッシュメッセージを設定
+            putSessionScope(AttributeConst.FLUSH, MessageConst.I_DELETED.getMessage());
+
+            //一覧画面にリダイレクト
+            redirect(ForwardConst.ACT_FOLLOW, ForwardConst.CMD_INDEX);
+        }
+
+
+
+
 }
