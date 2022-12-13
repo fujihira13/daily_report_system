@@ -44,9 +44,12 @@
                                 </c:otherwise>
                             </c:choose></td>
                             <td>
+
                           <a href="<c:url value='?action=${actFol}&command=${commCrt}&id=${employee.id}' />">
                                     <button class="follow">フォローする</button>
-                            </a></td>
+                            </a>
+
+                            </td>
                     </tr>
                 </c:forEach>
             </tbody>
