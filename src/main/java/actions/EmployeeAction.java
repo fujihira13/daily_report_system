@@ -97,7 +97,7 @@ public class EmployeeAction extends ActionBase {
              //ここまで追記
 
              //ここから追記
-             putRequestScope(AttributeConst.REP_COUNT, followsCount); //フォローした従業員が作成した日報の数
+            putRequestScope(AttributeConst.REP_COUNT, followsCount); //フォローした従業員が作成した日報の数
              putRequestScope(AttributeConst.FOLLOWS, follows); //取得したフォローデータ
              //ここまで追記
            putRequestScope(AttributeConst.EMPLOYEES, employees); //取得した従業員データ

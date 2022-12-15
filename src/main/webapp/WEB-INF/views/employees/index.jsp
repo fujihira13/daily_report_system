@@ -33,7 +33,7 @@
 
                     <tr class="row${status.count % 2}">
                       <c:choose>
-                            <c:when test="${employee.id!=null}">
+                            <c:when test="${follow.id=null}">
                         <td><c:out value="${employee.code}" /></td>
                         <td><c:out value="${employee.name}" /></td>
                         <td><c:out value="${employee.furigana}" /></td>
@@ -61,7 +61,7 @@
                             </c:choose></td>
                             </c:when>
                             <c:otherwise>
-                <p>aaaaaaaaaaa</p>
+                <p>赤点です…補講を行います</p>
             </c:otherwise>
                              </c:choose>
                     </tr>
