@@ -22,6 +22,7 @@ import services.FollowService;
 public class EmployeeAction extends ActionBase {
 
     private EmployeeService service;
+    private FollowService fservice;
 
     /**
      * メソッドを実行する
@@ -30,33 +31,18 @@ public class EmployeeAction extends ActionBase {
     public void process() throws ServletException, IOException {
 
         service = new EmployeeService();
-
-        //メソッドを実行
-        invoke();
-
-        service.close();
-    }
-
-    /**
-     * 一覧画面を表示する
-     * @throws ServletException
-     * @throws IOException
-     */
-
-    private FollowService fservice;
-
-    /**
-     * メソッドを実行する
-     */
-    public void fprocess() throws ServletException, IOException {
-
         fservice = new FollowService();
 
         //メソッドを実行
         invoke();
 
         service.close();
+        fservice.close();
     }
+
+
+
+
 
     /**
      * 一覧画面を表示する
