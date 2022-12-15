@@ -28,8 +28,12 @@
                     <th>操作</th>
                     <th>フォロー</th>
                 </tr>
+
                 <c:forEach var="employee" items="${employees}" varStatus="status">
+
                     <tr class="row${status.count % 2}">
+                      <c:choose>
+                            <c:when test="${employee.id!=null}">
                         <td><c:out value="${employee.code}" /></td>
                         <td><c:out value="${employee.name}" /></td>
                         <td><c:out value="${employee.furigana}" /></td>
@@ -55,8 +59,15 @@
                                     </a>
                                 </c:otherwise>
                             </c:choose></td>
+                            </c:when>
+                            <c:otherwise>
+                <p>aaaaaaaaaaa</p>
+            </c:otherwise>
+                             </c:choose>
                     </tr>
                 </c:forEach>
+
+
             </tbody>
         </table>
 

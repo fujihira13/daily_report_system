@@ -48,18 +48,18 @@ public class FollowAction extends ActionBase {
         EmployeeView loginEmployee = (EmployeeView) getSessionScope(AttributeConst.LOGIN_EMP);
 
         //ログイン中に従業員がフォローしたフォロー従業員を、指定されたページ数の一覧画面に表示する分取得する
-             int page = getPage();
-           List<FollowView> follows = service.getMinePerPage(loginEmployee,page);
+             int folpage = getPage();
+           List<FollowView> follows = service.getMineFolPerPage(loginEmployee,folpage);
 
 
          //ログイン中の従業員がフォローした従業員データの件数を取得
-         long followsCount = service.countAllMine(loginEmployee);
+         long followsCount = service.countAllFolMine(loginEmployee);
 
 
          putRequestScope(AttributeConst.REP_COUNT, followsCount); //フォローした従業員が作成した日報の数
          putRequestScope(AttributeConst.FOLLOWS, follows); //取得したフォローデータ
          putRequestScope(AttributeConst.FOLLOW_COUNT, followsCount); //ログイン中の従業員がフォローした従業員の数
-         putRequestScope(AttributeConst.PAGE, page); //ページ数
+         putRequestScope(AttributeConst.PAGE, folpage); //ページ数
          putRequestScope(AttributeConst.MAX_ROW, JpaConst.ROW_PER_PAGE); //1ページに表示するレコードの数
 
         //セッションにフラッシュメッセージが設定されている場合はリクエストスコープに移し替え、セッションからは削除する
@@ -81,18 +81,18 @@ public class FollowAction extends ActionBase {
         EmployeeView loginEmployee = (EmployeeView) getSessionScope(AttributeConst.LOGIN_EMP);
 
         //ログイン中に従業員がフォローしたフォロー従業員を、指定されたページ数の一覧画面に表示する分取得する
-             int page = getPage();
-           List<FollowView> followsaiueo = service.getMinePerPageNarabikae(loginEmployee,page);
+             int folpage = getPage();
+           List<FollowView> followsaiueo = service.getMinePerPageNarabikae(loginEmployee,folpage);
 
 
          //ログイン中の従業員がフォローした従業員データの件数を取得
-         long followsCount = service.countAllMine(loginEmployee);
+         long followsCount = service.countAllFolMine(loginEmployee);
 
 
          putRequestScope(AttributeConst.REP_COUNT, followsCount); //フォローした従業員が作成した日報の数
          putRequestScope(AttributeConst.FOLLOWS, followsaiueo); //取得したフォローデータ
          putRequestScope(AttributeConst.FOLLOW_COUNT, followsCount); //ログイン中の従業員がフォローした従業員の数
-         putRequestScope(AttributeConst.PAGE, page); //ページ数
+         putRequestScope(AttributeConst.PAGE, folpage); //ページ数
          putRequestScope(AttributeConst.MAX_ROW, JpaConst.ROW_PER_PAGE); //1ページに表示するレコードの数
 
         //セッションにフラッシュメッセージが設定されている場合はリクエストスコープに移し替え、セッションからは削除する

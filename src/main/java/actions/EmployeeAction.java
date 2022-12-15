@@ -6,12 +6,14 @@ import java.util.List;
 import javax.servlet.ServletException;
 
 import actions.views.EmployeeView;
+import actions.views.FollowView;
 import constants.AttributeConst;
 import constants.ForwardConst;
 import constants.JpaConst;
 import constants.MessageConst;
 import constants.PropertyConst;
 import services.EmployeeService;
+import services.FollowService;
 
 /**
  * 従業員に関わる処理を行うActionクラス
@@ -41,6 +43,28 @@ public class EmployeeAction extends ActionBase {
      * @throws IOException
      */
 
+    private FollowService fservice;
+
+    /**
+     * メソッドを実行する
+     */
+    public void fprocess() throws ServletException, IOException {
+
+        fservice = new FollowService();
+
+        //メソッドを実行
+        invoke();
+
+        service.close();
+    }
+
+    /**
+     * 一覧画面を表示する
+     * @throws ServletException
+     * @throws IOException
+     */
+
+
     public void entryNew() throws ServletException, IOException {
 
         if (checkAdmin()) {
@@ -61,7 +85,22 @@ public class EmployeeAction extends ActionBase {
             //全ての従業員データの件数を取得
             long employeeCount = service.countAll();
 
-            putRequestScope(AttributeConst.EMPLOYEES, employees); //取得した従業員データ
+
+            //ここから追記
+            //セッションからログイン中の従業員情報を取得
+            EmployeeView loginEmployee = (EmployeeView) getSessionScope(AttributeConst.LOGIN_EMP);
+            //ログイン中に従業員がフォローしたフォロー従業員を、指定されたページ数の一覧画面に表示する分取得する
+                 int folpage = getPage();
+               List<FollowView> follows = fservice.getMineFolPerPage(loginEmployee,folpage);
+             //ログイン中の従業員がフォローした従業員データの件数を取得
+             long followsCount = fservice.countAllFolMine(loginEmployee);
+             //ここまで追記
+
+             //ここから追記
+             putRequestScope(AttributeConst.REP_COUNT, followsCount); //フォローした従業員が作成した日報の数
+             putRequestScope(AttributeConst.FOLLOWS, follows); //取得したフォローデータ
+             //ここまで追記
+           putRequestScope(AttributeConst.EMPLOYEES, employees); //取得した従業員データ
             putRequestScope(AttributeConst.EMP_COUNT, employeeCount); //全ての従業員データの件数
             putRequestScope(AttributeConst.PAGE, page); //ページ数
             putRequestScope(AttributeConst.MAX_ROW, JpaConst.ROW_PER_PAGE); //1ページに表示するレコードの数

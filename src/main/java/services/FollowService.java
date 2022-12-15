@@ -22,7 +22,7 @@ public class FollowService extends ServiceBase {
      * @param page ページ数
      * @return 一覧画面に表示するデータのリスト
      */
-    public List<FollowView> getMinePerPage(EmployeeView employee, int page) {
+    public List<FollowView> getMineFolPerPage(EmployeeView employee, int page) {
 
         List<Follow> follows = em.createNamedQuery(JpaConst.Q_FOLLOW_GET_ALL_MINE, Follow.class)
                 .setParameter(JpaConst.JPQL_PARM_FOLLOWER, EmployeeConverter.toModel(employee))
@@ -40,7 +40,7 @@ public class FollowService extends ServiceBase {
      * @param employee
      * @return フォロー従業員データの件数
      */
-    public long countAllMine(EmployeeView employee) {
+    public long countAllFolMine(EmployeeView employee) {
         long follows_count = (long) em.createNamedQuery(JpaConst.Q_FOLOW_COUNT_ALL_MINE, Long.class)
                 .setParameter(JpaConst.JPQL_PARM_FOLLOWER, EmployeeConverter.toModel(employee))
                 .getSingleResult();
