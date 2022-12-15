@@ -32,6 +32,9 @@ public class FollowService extends ServiceBase {
         return FollowConverter.toViewList(follows);
     }
 
+
+
+
     /**
      * 指定した従業員がフォローした従業員データの件数を取得し、返却する
      * @param employee
@@ -43,6 +46,24 @@ public class FollowService extends ServiceBase {
                 .getSingleResult();
         return follows_count;
     }
+
+
+    /**
+     * 指定した従業員がフォローした従業員を、並び替えて指定されたページ数の一覧画面に表示する分取得しFollowViewのリストで返却する
+     * @param employee 従業員
+     * @param page ページ数
+     * @return 一覧画面に表示するデータのリスト
+     */
+    public List<FollowView> getMinePerPageNarabikae(EmployeeView employee, int page) {
+
+        List<Follow> followsaiueo = em.createNamedQuery(JpaConst.Q_FOLLOW_GET_ALL_MINE_NARABIKAE, Follow.class)
+                .setParameter(JpaConst.JPQL_PARM_FOLLOWER, EmployeeConverter.toModel(employee))
+                .setFirstResult(JpaConst.ROW_PER_PAGE * (page - 1))
+                .setMaxResults(JpaConst.ROW_PER_PAGE)
+                .getResultList();
+        return FollowConverter.toViewList(followsaiueo);
+    }
+
 
     /**
      * idを条件に取得したデータをFollowViewのインスタンスで返却する
@@ -141,5 +162,10 @@ public class FollowService extends ServiceBase {
         em.close();
 
     }
+
+
+
+
+
 
 }

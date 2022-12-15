@@ -13,6 +13,7 @@
 <c:set var="commNew" value="${ForwardConst.CMD_NEW.getValue()}" />
 <c:set var="commCrt" value="${ForwardConst.CMD_CREATE.getValue()}" />
 <c:set var="commDel" value="${ForwardConst.CMD_DESTROY.getValue()}" />
+<c:set var="commAIU" value="${ForwardConst.CMD_AIUEO.getValue()}" />
 
 <c:import url="/WEB-INF/views/layout/app.jsp">
     <c:param name="content">
@@ -22,6 +23,8 @@
             </div>
         </c:if>
         <h2>フォロー 一覧</h2>
+        <a href="<c:url value='?action=${actFol}&command=${commAIU}' />"><select name=”aiueojun”>
+        <option value=”item1”>あいうえお順</option></select></a>
         <table id="follow_list">
             <tbody>
                 <tr>
@@ -39,7 +42,7 @@
                                 <td><c:out value="${follow.follow.name}" /></td>
                         <td><c:out value="${follow.follow.furigana}" /></td>
                         <td class="follow_action"><a
-                            href="<c:url value='?action=${actRep}&command=${commShow}&id=${report.id}' />">詳細を見る</a></td>
+                           href="<c:url value='?action=${actRep}&command=${commShow}&id=${follow.follow.id}' />">詳細を見る</a></td>
                              <td>
                              <a href="<c:url value='?action=${actFol}&command=${commDel}&id=${follow.id}' />">
                                     <button class="nofollow">フォローを外す</button>

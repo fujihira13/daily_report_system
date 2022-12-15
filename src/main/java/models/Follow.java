@@ -36,6 +36,9 @@ import lombok.Setter;
     @NamedQuery(
             name =JpaConst. Q_FOLOW_COUNT_ALL_MINE,
             query =JpaConst. Q_FOLLOW_COUNT_ALL_MINE_DEF),
+    @NamedQuery(
+            name =JpaConst. Q_FOLLOW_GET_ALL_MINE_NARABIKAE,
+            query =JpaConst. Q_FOLLOW_GET_ALL_MINE_NARABIKAE_DEF),
 })
 
 @Getter //全てのクラスフィールドについてgetterを自動生成する(Lombok)

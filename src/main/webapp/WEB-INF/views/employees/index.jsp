@@ -43,13 +43,18 @@
                                         href="<c:url value='?action=${actEmp}&command=${commShow}&id=${employee.id}' />">詳細を見る</a>
                                 </c:otherwise>
                             </c:choose></td>
-                            <td>
-
-                          <a href="<c:url value='?action=${actFol}&command=${commCrt}&id=${employee.id}' />">
-                                    <button class="follow">フォローする</button>
-                            </a>
-
-                            </td>
+                        <td><c:choose>
+                                <c:when
+                                    test="${sessionScope.login_employee.id == employee.id}">
+                                    <button class="followed">フォロー済み</button>
+                                </c:when>
+                                <c:otherwise>
+                                    <a
+                                        href="<c:url value='?action=${actFol}&command=${commCrt}&id=${employee.id}' />">
+                                        <button class="follow">フォローする</button>
+                                    </a>
+                                </c:otherwise>
+                            </c:choose></td>
                     </tr>
                 </c:forEach>
             </tbody>
