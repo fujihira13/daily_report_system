@@ -10,6 +10,7 @@
 <c:set var="commIdx" value="${ForwardConst.CMD_INDEX.getValue()}" />
 <c:set var="actFol" value="${ForwardConst.ACT_FOLLOW.getValue()}" />
 <c:set var="commCrt" value="${ForwardConst.CMD_CREATE.getValue()}" />
+<c:set var="commDel" value="${ForwardConst.CMD_DESTROY.getValue()}" />
 
 <c:import url="../layout/app.jsp">
     <c:param name="content">
@@ -29,59 +30,75 @@
                     <th>フォロー</th>
                 </tr>
 
-                <c:forEach var="employee" items="${employees}" varStatus="status">
-                  <c:forEach var="follow" items="${follows}" varStatus="status">
 
-                    <tr class="row${status.count % 2}">
-                      <c:choose>
-                            <c:when test="${follow.id==null}">
-                        <td><c:out value="${employee.code}" /></td>
-                        <td><c:out value="${employee.name}" /></td>
-                        <td><c:out value="${employee.furigana}" /></td>
-                        <td><c:choose>
-                                <c:when
-                                    test="${employee.deleteFlag == AttributeConst.DEL_FLAG_TRUE.getIntegerValue()}">
+
+                <c:forEach var="employee" items="${employees}" varStatus="status">
+                    <c:set var="isfollow" value="false" />
+                    <c:forEach var="follow" items="${follows}" varStatus="status">
+
+                        <c:if test="${employee.id == follow.follow.id}">
+                            <c:set var="isfollow" value="true" />
+                        </c:if>
+                    </c:forEach>
+                    <c:choose>
+                        <c:when test="${isfollow}">
+                            <tr class="row${status.count % 2}">
+                                <td class="follow_name"><c:out
+                                        value="${employee.code}" /></td>
+                                <td><c:out value="${employee.name}" /></td>
+                                <td><c:out value="${employee.furigana}" /></td>
+                                <td><c:choose>
+                                        <c:when
+                                            test="${employee.deleteFlag == AttributeConst.DEL_FLAG_TRUE.getIntegerValue()}">
                                     （削除済み）
                                 </c:when>
-                                <c:otherwise>
-                                    <a
-                                        href="<c:url value='?action=${actEmp}&command=${commShow}&id=${employee.id}' />">詳細を見る</a>
-                                </c:otherwise>
-                            </c:choose></td>
-                        <td><c:choose>
-                                <c:when
-                                    test="${sessionScope.login_employee.id == employee.id}">
-                                    <button class="followed">フォロー済み</button>
-                                </c:when>
-                                <c:otherwise>
-                                    <a
-                                        href="<c:url value='?action=${actFol}&command=${commCrt}&id=${employee.id}' />">
-                                        <button class="follow">フォローする</button>
-                                    </a>
-                                </c:otherwise>
-                            </c:choose></td>
-                            </c:when>
-                            <c:otherwise>
-                 <td class="follow_name"><c:out
-                                value="${follow.follow.code}" /></td>
-                                <td><c:out value="${follow.follow.name}" /></td>
-                        <td><c:out value="${follow.follow.furigana}" /></td>
-                         <td><c:choose>
-                                <c:when
-                                    test="${employee.deleteFlag == AttributeConst.DEL_FLAG_TRUE.getIntegerValue()}">
+                                        <c:otherwise>
+                                            <a
+                                                href="<c:url value='?action=${actEmp}&command=${commShow}&id=${employee.id}' />">詳細を見る</a>
+                                        </c:otherwise>
+                                    </c:choose></td>
+                                <td>
+                                    <a href="<c:url value='?action=${actFol}&command=${commDel}&id=${follow.id}' />">
+                                    <button class="nofollow">フォローを外す</button>
+                            </a>
+                                </td>
+                        </c:when>
+                        <c:otherwise>
+
+                            <tr class="row${status.count % 2}">
+                                <td><c:out value="${employee.code}" /></td>
+                                <td><c:out value="${employee.name}" /></td>
+                                <td><c:out value="${employee.furigana}" /></td>
+                                <td><c:choose>
+                                        <c:when
+                                            test="${employee.deleteFlag == AttributeConst.DEL_FLAG_TRUE.getIntegerValue()}">
                                     （削除済み）
                                 </c:when>
-                                <c:otherwise>
-                                    <a
-                                        href="<c:url value='?action=${actEmp}&command=${commShow}&id=${employee.id}' />">詳細を見る</a>
-                                </c:otherwise>
-                            </c:choose></td>
-                            <td> <button class="followed">フォロー済み</button></td>
-            </c:otherwise>
-                             </c:choose>
-                    </tr>
+                                        <c:otherwise>
+                                            <a
+                                                href="<c:url value='?action=${actEmp}&command=${commShow}&id=${employee.id}' />">詳細を見る</a>
+                                        </c:otherwise>
+                                    </c:choose></td>
+                                <td><c:choose>
+                                        <c:when
+                                            test="${sessionScope.login_employee.id == employee.id}">
+                                            <button class="followed">ログイン中</button>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <a
+                                                href="<c:url value='?action=${actFol}&command=${commCrt}&id=${employee.id}' />">
+                                                <button class="follow">フォローする</button>
+                                            </a>
+                                        </c:otherwise>
+                                    </c:choose></td>
+
+
+
+                            </tr>
+                        </c:otherwise>
+                    </c:choose>
                 </c:forEach>
-                </c:forEach>
+
 
 
             </tbody>
