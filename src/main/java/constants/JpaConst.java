@@ -96,6 +96,21 @@ public interface JpaConst {
     //指定した社員番号を保持するフォロー従業員の件数を取得する
     String Q_FOL_COUNT_REGISTERED_BY_CODE = ENTITY_FOL + ".countRegisteredByCode";
     String Q_FOL_COUNT_REGISTERED_BY_CODE_DEF = "SELECT COUNT(f) FROM Follow AS f WHERE f.code = :" + JPQL_PARM_CODE;
+
+
+
+    //ログイン中従業員がフォローした従業員の作成した日報を全て取得
+    String Q_FOLLOW_GET_ALL_MINE_REPORT = ENTITY_FOL + ".getAllFollowMineReport";
+    String Q_FOLLOW_GET_ALL_MINE__REPORT_DEF = "SELECT  f FROM Report AS r,Follow AS f WHERE f.follower = :" + JPQL_PARM_FOLLOWER + " ORDER BY f.id DESC";
+
+    //ログイン中従業員がフォローした従業員の作成した日報の件数を取得する
+    String Q_REP_COUNT_ALL_FOLLOW_MINE = ENTITY_REP + ".countAllFollowMine";
+    String Q_REP_COUNT_ALL_FOLLOW_MINE_DEF = "SELECT COUNT(r) FROM Report AS r,Follow AS f WHERE r.employee = :" + JPQL_PARM_EMPLOYEE;
+
+
+
+
+
     //全ての日報をidの降順に取得する
     String Q_REP_GET_ALL = ENTITY_REP + ".getAll";
     String Q_REP_GET_ALL_DEF = "SELECT r FROM Report AS r ORDER BY r.id DESC";

@@ -8,6 +8,7 @@
 <c:set var="actEmp" value="${ForwardConst.ACT_EMP.getValue()}" />
 <c:set var="actFol" value="${ForwardConst.ACT_FOLLOW.getValue()}" />
 <c:set var="actRep" value="${ForwardConst.ACT_REP.getValue()}" />
+<c:set var="actTop" value="${ForwardConst.ACT_TOP.getValue()}" />
 <c:set var="commIdx" value="${ForwardConst.CMD_INDEX.getValue()}" />
 <c:set var="commShow" value="${ForwardConst.CMD_SHOW.getValue()}" />
 <c:set var="commNew" value="${ForwardConst.CMD_NEW.getValue()}" />
@@ -41,8 +42,7 @@
                                 value="${follow.follow.code}" /></td>
                                 <td><c:out value="${follow.follow.name}" /></td>
                         <td><c:out value="${follow.follow.furigana}" /></td>
-                        <td class="follow_action"><a
-                           href="<c:url value='?action=${actRep}&command=${commShow}&id=${follow.follow.id}' />">詳細を見る</a></td>
+                        <td class="follow_action"><a href="<c:url value='?action=${actFol}&command=${commShow}' />">詳細を見る</a></td>
                              <td>
                              <a href="<c:url value='?action=${actFol}&command=${commDel}&id=${follow.id}' />">
                                     <button class="nofollow">フォローを外す</button>

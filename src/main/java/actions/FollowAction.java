@@ -13,7 +13,6 @@ import constants.ForwardConst;
 import constants.JpaConst;
 import constants.MessageConst;
 import services.FollowService;
-import services.ReportService;
 
 /**
  * フォローに関する処理を行うActionクラス
@@ -158,19 +157,9 @@ public class FollowAction extends ActionBase {
 
 
 
-    private ReportService fservice;
 
-    /**
-     * メソッドを実行する
-     */
-    public void fprocess() throws ServletException, IOException {
 
-        fservice = new ReportService();
 
-        //メソッドを実行
-        invoke();
-        fservice.close();
-    }
     /**
      * フォローしている従業員の日報詳細画面を表示する
      * @throws ServletException
@@ -178,21 +167,33 @@ public class FollowAction extends ActionBase {
      */
     public void show() throws ServletException, IOException {
 
-        //idを条件に日報データを取得する
-        ReportView rv = fservice.findOne(toNumber(getRequestParam(AttributeConst.REP_ID)));
+        ///idを条件に従業員データを取得する
+        EmployeeView fol = service.findOne(toNumber(getRequestParam(AttributeConst.EMP_ID)));
+        //フォローした従業員の作成した日報データを、指定されたページ数の一覧画面に表示する分取得する
+        int page = getPage();
+        List<ReportView> followReports = service.getMinefollowPerPage(fol, page);
 
-        if (rv == null) {
-            //該当の日報データが存在しない場合はエラー画面を表示
-            forward(ForwardConst.FW_ERR_UNKNOWN);
+        //フォローした従業員が作成した日報データの件数を取得
+        long myFollowReportsCount = service.countAllFollowMine(fol);
 
-        } else {
 
-            putRequestScope(AttributeConst.REPORT, rv); //取得した日報データ
+        putRequestScope(AttributeConst.FOLLOWREPORTS, followReports); //取得した日報データ
+        putRequestScope(AttributeConst.REP_COUNT, myFollowReportsCount); //フォローした従業員が作成した日報の数
+        putRequestScope(AttributeConst.PAGE, page); //ページ数
+        putRequestScope(AttributeConst.MAX_ROW, JpaConst.ROW_PER_PAGE); //1ページに表示するレコードの数
 
-            //詳細画面を表示
-            forward(ForwardConst.FW_REP_SHOW);
+
+
+        //セッションにフラッシュメッセージが設定されている場合はリクエストスコープに移し替え、セッションからは削除する
+        String flush = getSessionScope(AttributeConst.FLUSH);
+        if (flush != null) {
+            putRequestScope(AttributeConst.FLUSH, flush);
+            removeSessionScope(AttributeConst.FLUSH);
         }
+
+        //一覧画面を表示
+        forward(ForwardConst.FW_FOL_SHOW);
+    }
 
     }
 
-}
