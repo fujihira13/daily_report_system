@@ -102,15 +102,36 @@ public class FollowService extends ServiceBase {
 
 
     /**
+     * idを条件に取得したデータをEmployeeViewのインスタンスで返却する
+     * @param id
+     * @return 取得データのインスタンス
+     */
+    public FollowView findFolOne(int id) {
+        Follow fol = findFolOneInternal(id);
+        return FollowConverter.toView(fol);
+    }
+
+    /**
+     * idを条件にデータを1件取得し、Employeeのインスタンスで返却する
+     * @param id
+     * @return 取得データのインスタンス
+     */
+    private Follow findFolOneInternal(int id) {
+        Follow fol = em.find(Follow.class, id);
+
+        return fol;
+    }
+
+    /**
      * 指定した従業員が作成した日報データを、指定されたページ数の一覧画面に表示する分取得しReportViewのリストで返却する
      * @param employee 従業員
      * @param page ページ数
      * @return 一覧画面に表示するデータのリスト
      */
-    public List<ReportView> getMinefollowPerPage(EmployeeView employee,int page) {
+    public List<ReportView> getMinefollowPerPage(FollowView follow,int page) {
 
         List<Report> followReports = em.createNamedQuery(JpaConst.Q_REP_GET_ALL_MINE, Report.class)
-                .setParameter(JpaConst.JPQL_PARM_EMPLOYEE, EmployeeConverter.toModel(employee))
+                .setParameter(JpaConst.JPQL_PARM_EMPLOYEE, FollowConverter.toModel(follow))
                 .setFirstResult(JpaConst.ROW_PER_PAGE * (page - 1))
                 .setMaxResults(JpaConst.ROW_PER_PAGE)
                 .getResultList();
@@ -122,10 +143,10 @@ public class FollowService extends ServiceBase {
      * @param employee
      * @return 日報データの件数
      */
-    public long countAllFollowMine(EmployeeView employee) {
+    public long countAllFollowMine(FollowView employee) {
 
         long count = (long) em.createNamedQuery(JpaConst.Q_REP_COUNT_ALL_MINE, Long.class)
-                .setParameter(JpaConst.JPQL_PARM_EMPLOYEE, EmployeeConverter.toModel(employee))
+                .setParameter(JpaConst.JPQL_PARM_EMPLOYEE, FollowConverter.toModel(employee))
                 .getSingleResult();
 
         return count;

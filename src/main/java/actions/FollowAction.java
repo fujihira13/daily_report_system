@@ -12,7 +12,9 @@ import constants.AttributeConst;
 import constants.ForwardConst;
 import constants.JpaConst;
 import constants.MessageConst;
+import services.EmployeeService;
 import services.FollowService;
+import services.ReportService;
 
 /**
  * フォローに関する処理を行うActionクラス
@@ -21,6 +23,8 @@ import services.FollowService;
 public class FollowAction extends ActionBase {
 
     private FollowService service;
+    private ReportService rservice;
+    private EmployeeService eservice;
 
     /**
      * メソッドを実行する
@@ -29,10 +33,16 @@ public class FollowAction extends ActionBase {
     public void process() throws ServletException, IOException {
 
         service = new FollowService();
+        rservice = new ReportService();
+        eservice = new EmployeeService();
+
 
         //メソッドを実行
         invoke();
         service.close();
+        rservice.close();
+        eservice.close();
+
     }
 
     /**
@@ -168,17 +178,17 @@ public class FollowAction extends ActionBase {
     public void show() throws ServletException, IOException {
 
         ///idを条件に従業員データを取得する
-        EmployeeView fol = service.findOne(toNumber(getRequestParam(AttributeConst.EMP_ID)));
-        //フォローした従業員の作成した日報データを、指定されたページ数の一覧画面に表示する分取得する
+        EmployeeView employee = eservice.findOne(toNumber(getRequestParam(AttributeConst.EMP_ID)));
+        //指定した従業員の作成した日報データを、指定されたページ数の一覧画面に表示する分取得する
         int page = getPage();
-        List<ReportView> followReports = service.getMinefollowPerPage(fol, page);
+        List<ReportView> reports = rservice.getMinePerPage(employee, page);
 
-        //フォローした従業員が作成した日報データの件数を取得
-        long myFollowReportsCount = service.countAllFollowMine(fol);
+        //指定した従業員が作成した日報データの件数を取得
+        long myReportsCount = rservice.countAllMine(employee);
 
 
-        putRequestScope(AttributeConst.FOLLOWREPORTS, followReports); //取得した日報データ
-        putRequestScope(AttributeConst.REP_COUNT, myFollowReportsCount); //フォローした従業員が作成した日報の数
+        putRequestScope(AttributeConst.REPORTS, reports); //取得した日報データ
+        putRequestScope(AttributeConst.REP_COUNT, myReportsCount); //フォローした従業員が作成した日報の数
         putRequestScope(AttributeConst.PAGE, page); //ページ数
         putRequestScope(AttributeConst.MAX_ROW, JpaConst.ROW_PER_PAGE); //1ページに表示するレコードの数
 
