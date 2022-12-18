@@ -46,7 +46,7 @@
                             <tr class="row${status.count % 2}">
                                 <td class="follow_name"><c:out
                                         value="${employee.code}" /></td>
-                                <td><c:out value="${employee.name}" /></td>
+                                <td><c:out value="${follow.follow.name}" /></td>
                                 <td><c:out value="${employee.furigana}" /></td>
                                 <td><c:choose>
                                         <c:when
