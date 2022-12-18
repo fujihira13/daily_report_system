@@ -15,6 +15,7 @@
 <c:set var="commCrt" value="${ForwardConst.CMD_CREATE.getValue()}" />
 <c:set var="commDel" value="${ForwardConst.CMD_DESTROY.getValue()}" />
 <c:set var="commAIU" value="${ForwardConst.CMD_AIUEO.getValue()}" />
+<c:set var="employee" value="${employees}" />
 
 <c:import url="/WEB-INF/views/layout/app.jsp">
     <c:param name="content">
@@ -42,7 +43,7 @@
                                 value="${follow.follow.code}" /></td>
                                 <td><c:out value="${follow.follow.name}" /></td>
                         <td><c:out value="${follow.follow.furigana}" /></td>
-                        <td class="follow_action"><a href="<c:url value='?action=${actFol}&command=${commShow}' />">詳細を見る</a></td>
+                        <td class="follow_action"><a href="<c:url value='?action=${actFol}&command=${commShow}&id=${follow.follow.id}' />">詳細を見る</a></td>
                              <td>
                              <a href="<c:url value='?action=${actFol}&command=${commDel}&id=${follow.id}' />">
                                     <button class="nofollow">フォローを外す</button>
