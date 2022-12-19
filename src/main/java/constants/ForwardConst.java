@@ -25,6 +25,7 @@ public enum ForwardConst {
     CMD_UPDATE("update"),
     CMD_DESTROY("destroy"),
     CMD_AIUEO("aiueo"),
+    CMD_FOL_DESTROY("fdestroy"),
     CMD_FOL_SHOW("followshow"),
 
     //jsp

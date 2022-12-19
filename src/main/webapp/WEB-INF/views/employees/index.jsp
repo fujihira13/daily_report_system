@@ -12,6 +12,7 @@
 <c:set var="actFol" value="${ForwardConst.ACT_FOLLOW.getValue()}" />
 <c:set var="commCrt" value="${ForwardConst.CMD_CREATE.getValue()}" />
 <c:set var="commDel" value="${ForwardConst.CMD_DESTROY.getValue()}" />
+<c:set var="commFDel" value="${ForwardConst.CMD_FOL_DESTROY.getValue()}" />
 
 <c:import url="../layout/app.jsp">
     <c:param name="content">
@@ -46,7 +47,7 @@
                             <tr class="row${status.count % 2}">
                                 <td class="follow_name"><c:out
                                         value="${employee.code}" /></td>
-                                <td><c:out value="${follow.follow.name}" /></td>
+                                <td><c:out value="${employee.name}" /></td>
                                 <td><c:out value="${employee.furigana}" /></td>
                                 <td><c:choose>
                                         <c:when
@@ -59,7 +60,7 @@
                                         </c:otherwise>
                                     </c:choose></td>
                                 <td>
-                                    <a href="<c:url value='?action=${actFol}&command=${commDel}&id=${follow.id}' />">
+                                    <a href="<c:url value='?action=${actFol}&command=${commFDel}&id=${employee.id}' />">
                                     <button class="nofollow">フォローを外す</button>
                             </a>
                                 </td>

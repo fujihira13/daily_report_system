@@ -193,6 +193,7 @@ public class FollowAction extends ActionBase {
         EmployeeView ev = eservice.findOne(toNumber(getRequestParam(AttributeConst.EMP_ID)));
 
 
+
         //指定した従業員の作成した日報データを、指定されたページ数の一覧画面に表示する分取得する
         int page = getPage();
         List<ReportView> reports = rservice.getMinePerPage(ev, page);
@@ -219,6 +220,24 @@ public class FollowAction extends ActionBase {
 
         //一覧画面を表示
         forward(ForwardConst.FW_FOL_SHOW);
+    }
+
+
+
+    public void fdestroy() throws ServletException, IOException {
+
+
+        ///idを条件に従業員データを取得する
+        EmployeeView fol = eservice.findOne(toNumber(getRequestParam(AttributeConst.EMP_ID)));
+
+        //idを条件にフォロー従業員データを削除する
+        service.fdestroy(toNumber(getRequestParam(AttributeConst.FOL_ID)));
+
+        //セッションに削除完了のフラッシュメッセージを設定
+        putSessionScope(AttributeConst.FLUSH, MessageConst.I_DELETED.getMessage());
+
+        //一覧画面にリダイレクト
+        redirect(ForwardConst.ACT_EMP, ForwardConst.CMD_INDEX);
     }
 
     }
