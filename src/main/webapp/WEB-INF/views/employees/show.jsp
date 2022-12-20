@@ -11,7 +11,7 @@
 <c:import url="/WEB-INF/views/layout/app.jsp">
     <c:param name="content">
 
-        <h2>id : ${employee.id} の従業員情報 詳細ページ</h2>
+        <h2>従業員情報 詳細ページ</h2>
 
         <table>
             <tbody>

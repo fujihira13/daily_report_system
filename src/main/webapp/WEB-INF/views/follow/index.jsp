@@ -55,9 +55,9 @@
             </tbody>
         </table>
          <div id="pagination">
-            （全 ${employees_count} 件）<br />
+            （全 ${follows_count} 件）<br />
             <c:forEach var="i" begin="1"
-                end="${((employees_count - 1) / maxRow) + 1}" step="1">
+                end="${((follows_count - 1) / maxRow) + 1}" step="1">
                 <c:choose>
                     <c:when test="${i == page}">
                         <c:out value="${i}" />&nbsp;
@@ -73,7 +73,7 @@
 
 
         <p>
-            <a href="<c:url value='?action=${actFol}&command=${commNew}' />">新規日報の登録</a>
+            <a href="<c:url value='?action=${actEmp}&command=${commNew}' />">新規従業員の登録</a>
         </p>
 
     </c:param>

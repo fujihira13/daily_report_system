@@ -44,6 +44,7 @@
                     </c:forEach>
                     <c:choose>
                         <c:when test="${isfollow}">
+
                             <tr class="row${status.count % 2}">
                                 <td class="follow_name"><c:out
                                         value="${employee.code}" /></td>

@@ -154,16 +154,40 @@ public class FollowService extends ServiceBase {
 
 
     /**
-     * 画面から入力されたフォローの登録を元に、フォローデータを更新する
-     * @param fv フォローの更新内容
+     * 指定した従業員がフォローidを、取得する
+     * @param employee 従業員
+
+     */
+    public Follow getMinePerPage(EmployeeView employee) {
+
+        Follow id = (Follow) em.createNamedQuery(JpaConst.Q_FOL_GET_ID, Follow.class)
+                .setParameter(JpaConst.JPQL_PARM_EMPLOYEE, EmployeeConverter.toModel(employee))
+
+                .getSingleResult();
+        return id;
+    }
 
 
-    public List<String> update(FollowView fv) {
 
-            updateInternal(fv);
-        }
 
-    */
+
+
+    /**
+     * 指定した従業員がフォローデータの件数を取得し、返却する
+     * @param employee
+     * @return フォローデータの件数
+     */
+    public long countAllMine(EmployeeView employee) {
+
+        long count = (long) em.createNamedQuery(JpaConst.Q_FOLID_COUNT_ALL_MINE, Long.class)
+                .setParameter(JpaConst.Q_FOLID_COUNT_ALL_MINE_DEF, EmployeeConverter.toModel(employee))
+                .getSingleResult();
+
+        return count;
+    }
+
+
+
     /**
      * idを条件にデータを1件取得する
      * @param id
@@ -221,12 +245,12 @@ public class FollowService extends ServiceBase {
 
     /**
      * idを条件にフォロー従業員データを削除する
-     * @param id
+     * @param follows
      */
-    public void fdestroy(Integer id) {
+    public void fdestroy(Follow follows) {
         //idを条件にフォロー済みの従業員情報を取得する
 
-        Follow f = em.find(Follow.class, id);
+        Follow f = em.find(Follow.class, follows);
         //削除する
 
         em.getTransaction().begin();

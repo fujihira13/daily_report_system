@@ -12,6 +12,7 @@ import constants.AttributeConst;
 import constants.ForwardConst;
 import constants.JpaConst;
 import constants.MessageConst;
+import models.Follow;
 import services.EmployeeService;
 import services.FollowService;
 import services.ReportService;
@@ -228,10 +229,16 @@ public class FollowAction extends ActionBase {
 
 
         ///idを条件に従業員データを取得する
-        EmployeeView fol = eservice.findOne(toNumber(getRequestParam(AttributeConst.EMP_ID)));
+        EmployeeView ev = eservice.findOne(toNumber(getRequestParam(AttributeConst.EMP_ID)));
+
+
+        //指定した従業員がもっているフォローidを取得する
+        Follow id =  service.getMinePerPage(ev);
+
+
 
         //idを条件にフォロー従業員データを削除する
-        service.fdestroy(toNumber(getRequestParam(AttributeConst.FOL_ID)));
+        service.fdestroy(id);
 
         //セッションに削除完了のフラッシュメッセージを設定
         putSessionScope(AttributeConst.FLUSH, MessageConst.I_DELETED.getMessage());
