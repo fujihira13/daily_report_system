@@ -28,81 +28,60 @@
                     <th>社員番号</th>
                     <th>氏名</th>
                     <th>ふりがな</th>
-                    <th>操作</th>
+                    <th>従業員詳細</th>
                     <th>フォロー</th>
                 </tr>
 
 
 
                 <c:forEach var="employee" items="${employees}" varStatus="status">
-                    <c:set var="isfollow" value="false" />
-                    <c:forEach var="follow" items="${follows}" varStatus="status">
 
-                        <c:if test="${employee.id == follow.follow.id}">
-                            <c:set var="isfollow" value="true" />
-                        </c:if>
-                    </c:forEach>
-                    <c:choose>
-                        <c:when test="${isfollow}">
-
-                            <tr class="row${status.count % 2}">
-                                <td class="follow_name"><c:out
-                                        value="${employee.code}" /></td>
-                                <td><c:out value="${employee.name}" /></td>
-                                <td><c:out value="${employee.furigana}" /></td>
-                                <td><c:choose>
-                                        <c:when
-                                            test="${employee.deleteFlag == AttributeConst.DEL_FLAG_TRUE.getIntegerValue()}">
+                    <tr class="row${status.count % 2}">
+                        <td class="follow_name"><c:out value="${employee.code}" /></td>
+                        <td><c:out value="${employee.name}" /></td>
+                        <td><c:out value="${employee.furigana}" /></td>
+                        <td><c:choose>
+                                <c:when
+                                    test="${employee.deleteFlag == AttributeConst.DEL_FLAG_TRUE.getIntegerValue()}">
                                     （削除済み）
                                 </c:when>
-                                        <c:otherwise>
-                                            <a
-                                                href="<c:url value='?action=${actEmp}&command=${commShow}&id=${employee.id}' />">詳細を見る</a>
-                                        </c:otherwise>
-                                    </c:choose></td>
-                                <td>
-                                    <a href="<c:url value='?action=${actFol}&command=${commFDel}&id=${employee.id}' />">
-                                    <button class="nofollow">フォローを外す</button>
-                            </a>
-                                </td>
-                        </c:when>
-                        <c:otherwise>
+                                <c:otherwise>
+                                    <a
+                                        href="<c:url value='?action=${actEmp}&command=${commShow}&id=${employee.id}' />">詳細を見る</a>
 
-                            <tr class="row${status.count % 2}">
-                                <td><c:out value="${employee.code}" /></td>
-                                <td><c:out value="${employee.name}" /></td>
-                                <td><c:out value="${employee.furigana}" /></td>
-                                <td><c:choose>
-                                        <c:when
-                                            test="${employee.deleteFlag == AttributeConst.DEL_FLAG_TRUE.getIntegerValue()}">
-                                    （削除済み）
+                                </c:otherwise>
+                            </c:choose></td>
+
+
+
+                        <c:set var="isfollow" value="false" />
+                        <c:set var="followeeId" value="" />
+                        <c:set var="followtableId" value="" />
+                        <c:forEach var="follow" items="${follows}" varStatus="status">
+                            <c:if test="${employee.id == follow.follow.id}">
+                                <c:set var="isfollow" value="true" />
+                                <c:set var="followeeId" value="${follow.follow.id}" />
+                                <c:set var="followtableId" value="${follow.id}" />
+                            </c:if>
+                        </c:forEach>
+
+                        <td><c:choose>
+                                <c:when test="${employee.id == followeeId}">
+                                    <a
+                                        href="<c:url value='?action=${actFol}&command=${commFDel}&id=${followtableId}' />"><button class="nofollow">フォローを外す</button></a>
                                 </c:when>
-                                        <c:otherwise>
-                                            <a
-                                                href="<c:url value='?action=${actEmp}&command=${commShow}&id=${employee.id}' />">詳細を見る</a>
-                                        </c:otherwise>
-                                    </c:choose></td>
-                                <td><c:choose>
-                                        <c:when
+                                <c:when
                                             test="${sessionScope.login_employee.id == employee.id}">
                                             <button class="followed">ログイン中</button>
                                         </c:when>
-                                        <c:otherwise>
-                                            <a
-                                                href="<c:url value='?action=${actFol}&command=${commCrt}&id=${employee.id}' />">
-                                                <button class="follow">フォローする</button>
-                                            </a>
-                                        </c:otherwise>
-                                    </c:choose></td>
+                                <c:otherwise>
+                                    <a
+                                        href="<c:url value='?action=${actFol}&command=${commCrt}&id=${employee.id}' />"><button class="follow">フォローする</button></a>
+                                </c:otherwise>
+                            </c:choose></td>
 
-
-
-                            </tr>
-                        </c:otherwise>
-                    </c:choose>
+                    </tr>
                 </c:forEach>
-
-
 
             </tbody>
         </table>

@@ -232,7 +232,6 @@ public class FollowService extends ServiceBase {
      */
     public void destroy(Integer id) {
         //idを条件にフォロー済みの従業員情報を取得する
-
         Follow f = em.find(Follow.class, id);
         //削除する
 
@@ -247,10 +246,9 @@ public class FollowService extends ServiceBase {
      * idを条件にフォロー従業員データを削除する
      * @param follows
      */
-    public void fdestroy(Follow follows) {
+    public void fdestroy(Integer id) {
         //idを条件にフォロー済みの従業員情報を取得する
-
-        Follow f = em.find(Follow.class, follows);
+        Follow f = em.find(Follow.class, id);
         //削除する
 
         em.getTransaction().begin();
@@ -261,6 +259,8 @@ public class FollowService extends ServiceBase {
     }
 
 
+    }
 
 
-}
+
+
