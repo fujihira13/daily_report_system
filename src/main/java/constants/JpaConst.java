@@ -72,53 +72,42 @@ public interface JpaConst {
   //指定した従業員のふりがなを取得する
     String Q_EMP_FU_GET = ENTITY_EMP + ".getFurigana"; //ふりがな
     String Q_EMP_FU_GET_DEF = "SELECT e FROM Employee AS e WHERE e.furigana = :" + JPQL_PARM_EMPLOYEE;
-
     //フォローした全件idを降順で取得する
     String Q_FOL_GET_ALL_MINE = ENTITY_FOL + ".getAllMine";
     String Q_FOL_GET_ALL_MINE_DEF = "SELECT f FROM Follow AS f ORDER BY f.id DESC";
-
     //フォローした社員の件数を取得する
     String Q_FOL_COUNT_ALL_MINE = ENTITY_FOL + ".countAllMine";
     String Q_FOL_COUNT_ALL_MINE_DEF = "SELECT COUNT(f) FROM Follow AS f";
-
     //指定した従業員がフォローした従業員を全て取得する
     String Q_FOLLOW_GET_ALL_MINE = ENTITY_FOL + ".getAllFollowMine";
     String Q_FOLLOW_GET_ALL_MINE_DEF = "SELECT  f FROM Follow AS f WHERE f.follower = :" + JPQL_PARM_FOLLOWER + " ORDER BY f.id DESC";
-
     //指定した従業員がフォローした従業員の件数を取得する
     String Q_FOLOW_COUNT_ALL_MINE = ENTITY_FOL + ".countFollowAllMine";
     String Q_FOLLOW_COUNT_ALL_MINE_DEF = "SELECT COUNT(f) FROM Follow AS f WHERE f.follower = :" + JPQL_PARM_FOLLOWER;
 
-    //指定した従業員がフォローした従業員を全て取得し並び替える
+
+
+    //指定した従業員がフォローした従業員を全て取得しあいうえお順に並び替える
     String Q_FOLLOW_GET_ALL_MINE_NARABIKAE = ENTITY_FOL + ".getAllFollowMineNarabikae";
     String Q_FOLLOW_GET_ALL_MINE_NARABIKAE_DEF = "SELECT  f FROM Follow AS f WHERE f.follower = :" + JPQL_PARM_FOLLOWER;
+
+
 
     //指定した社員番号を保持するフォロー従業員の件数を取得する
     String Q_FOL_COUNT_REGISTERED_BY_CODE = ENTITY_FOL + ".countRegisteredByCode";
     String Q_FOL_COUNT_REGISTERED_BY_CODE_DEF = "SELECT COUNT(f) FROM Follow AS f WHERE f.code = :" + JPQL_PARM_CODE;
-
-
-
     //ログイン中従業員がフォローした従業員の作成した日報を全て取得
     String Q_FOLLOW_GET_ALL_MINE_REPORT = ENTITY_FOL + ".getAllFollowMineReport";
     String Q_FOLLOW_GET_ALL_MINE__REPORT_DEF = "SELECT  f FROM Report AS r,Follow AS f WHERE f.follower = :" + JPQL_PARM_FOLLOWER + " ORDER BY f.id DESC";
-
     //ログイン中従業員がフォローした従業員の作成した日報の件数を取得する
     String Q_REP_COUNT_ALL_FOLLOW_MINE = ENTITY_REP + ".countAllFollowMine";
     String Q_REP_COUNT_ALL_FOLLOW_MINE_DEF = "SELECT COUNT(r) FROM Report AS r,Follow AS f WHERE r.employee = :" + JPQL_PARM_EMPLOYEE;
-
-
     //指定した従業員が保持しているをフォローidを取得する
     String Q_FOL_GET_ID = ENTITY_FOL + ".getID";
     String Q_FOL_GET_ID_DEF = "SELECT f FROM Follow AS f WHERE f.follow = :" + JPQL_PARM_EMPLOYEE ;
-
-
     //指定した従業員が保持しているフォローidの件数を取得する
     String Q_FOLID_COUNT_ALL_MINE = ENTITY_REP + ".countIdAllMine";
     String Q_FOLID_COUNT_ALL_MINE_DEF = "SELECT COUNT(f) FROM Follow AS f WHERE f.follow = :" + JPQL_PARM_EMPLOYEE;
-
-
-
     //全ての日報をidの降順に取得する
     String Q_REP_GET_ALL = ENTITY_REP + ".getAll";
     String Q_REP_GET_ALL_DEF = "SELECT r FROM Report AS r ORDER BY r.id DESC";

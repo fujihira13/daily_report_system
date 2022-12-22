@@ -33,7 +33,7 @@
                     <th class="follow_name">社員番号</th>
                     <th class="follow_date">氏名</th>
                     <th class="follow_title">ふりがな</th>
-                    <th class="follow_action">操作</th>
+                    <th class="follow_action">日報</th>
                     <th class="follow_action">フォロー</th>
                 </tr>
                  <c:forEach var="follow" items="${follows}" varStatus="status">
