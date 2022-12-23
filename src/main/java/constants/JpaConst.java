@@ -89,7 +89,7 @@ public interface JpaConst {
 
     //指定した従業員がフォローした従業員を全て取得しあいうえお順に並び替える
     String Q_FOLLOW_GET_ALL_MINE_NARABIKAE = ENTITY_FOL + ".getAllFollowMineNarabikae";
-    String Q_FOLLOW_GET_ALL_MINE_NARABIKAE_DEF = "SELECT  f FROM Follow AS f WHERE f.follower = :" + JPQL_PARM_FOLLOWER;
+    String Q_FOLLOW_GET_ALL_MINE_NARABIKAE_DEF = "SELECT  f FROM Follow AS f WHERE f.follower = :" + JPQL_PARM_FOLLOWER+ " ORDER BY f.follow.furigana ";
 
 
 

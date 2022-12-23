@@ -58,7 +58,6 @@ public class FollowService extends ServiceBase {
      * @return 一覧画面に表示するデータのリスト
      */
     public List<FollowView> getMinePerPageNarabikae(EmployeeView employee, int page) {
-
         List<Follow> followsaiueo = em.createNamedQuery(JpaConst.Q_FOLLOW_GET_ALL_MINE_NARABIKAE, Follow.class)
                 .setParameter(JpaConst.JPQL_PARM_FOLLOWER, EmployeeConverter.toModel(employee))
                 .setFirstResult(JpaConst.ROW_PER_PAGE * (page - 1))
